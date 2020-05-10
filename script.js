@@ -3,6 +3,14 @@ var files = [];
 var fileList = [];
 
 //example
+
+if (localStorage.getItem("fileList") === null) {
+    console.log('new user')
+    var exampleFileList = JSON.stringify(['example'])
+    localStorage.setItem('fileList',exampleFileList)
+    localStorage.setItem('example','this is an example file. it may not look like much but it is the sole reason this notes webapp isnt broken for you right now.')
+}
+
 window.onload = function(){
     console.log('haha funny joke') //debugging at its finiest
     loadFileList();

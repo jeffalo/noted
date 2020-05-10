@@ -1,0 +1,62 @@
+body {
+    font-family: sans-serif;
+  }
+
+.sidenav {
+    height: 100%;
+    width: 15%;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #23232e;
+    overflow-x: hidden;
+    padding-top: 10px;
+  }
+  
+  .sidenav a {
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    font-size: 20px;
+    color: #818181;
+    display: block;
+  }
+  .sidenav h1 {
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    font-size: 20px;
+    color: #818181;
+    display: block;
+  }
+
+  .file{
+    padding: 10px;
+    overflow: hidden;
+    background-color: #23232e;
+    cursor: pointer;
+  }
+
+  .file:hover{
+    background-color:#141418;
+  }
+
+  .selected{
+    background-color:#0e0e11;
+  }
+
+
+  .main {
+    margin-left: 15%; /* Same as the width of the sidenav */
+    font-size: 20px; /* Increased text to enable scrolling */
+    padding: 0px 10px;
+  }
+  .title{
+    outline:0;
+    width: 100%;
+    height:100%
+  }
+  .contents{
+    outline:0;
+    width: 100%;
+    height:100%
+  }

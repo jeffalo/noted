@@ -155,7 +155,18 @@ function createTools(){
         askFileName()
     })
     createButton.className = "addbutton"
+
+    var clearButton = document.createElement('button')
+    clearButton.innerHTML = '<i class="material-icons">clear_all</i>'
+    clearButton.addEventListener('click', function(){
+        clearAll()
+    })
+    clearButton.className = "addbutton"
+
     toolbox.appendChild(createButton)
+    toolbox.appendChild(clearButton)
+
+
     sidebar.appendChild(toolbox)
 }
 
@@ -296,3 +307,12 @@ document.addEventListener('input', function (event) {
 	if (event.target.tagName.toLowerCase() !== 'textarea') return;
 	autoExpand(event.target);
 }, false);
+
+function clearAll(){
+    var fileListClear = JSON.parse(localStorage.getItem('fileList'))
+    for(let file of fileListClear){
+        removeFile(file)
+    }
+    loadFiles()
+    showSplashScreen()
+}

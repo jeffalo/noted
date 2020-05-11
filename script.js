@@ -67,6 +67,7 @@ function loadFiles(){
         a.appendChild(textnode); 
         sidebar.appendChild(fileDiv)
     }
+    createTools()
 }
 
 function loadFile(item){//note the not s in loadFile
@@ -103,4 +104,17 @@ function clearFiles(){//this one clears the sidebar of files
    document.getElementById('sidebar').innerHTML = `        <div class="file">
    <h1><i class="material-icons">description</i> LOGO</h1>
 </div>`
+}
+
+function createTools(){
+    var sidebar = document.getElementById('sidebar') 
+    var toolbox = document.createElement('div')
+    toolbox.className = "toolbox"
+    var createButton = document.createElement('button')
+    createButton.innerText = "new"
+    createButton.addEventListener('click', function(){
+        createFile(prompt('file name'))
+    })
+    toolbox.appendChild(createButton)
+    sidebar.appendChild(toolbox)
 }

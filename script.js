@@ -376,9 +376,25 @@ async function uploadFile(){
         console.log(fileUploader.value)
         reader.onload = (e) => {
           console.log(reader.result)
-          createFile(file.name, reader.result)
+          var randomstring =  makeid(10)
+          if(fileList.includes(file.name)){
+            createFile(file.name + " - " +randomstring, reader.result)
+          } else{
+            createFile(file.name, reader.result)
+          }
         }
         reader.readAsText(file)
         
       }
 }
+
+function makeid(length) {
+    var result           = '';
+    var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    var charactersLength = characters.length;
+    for ( var i = 0; i < length; i++ ) {
+       result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+ }
+ 

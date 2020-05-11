@@ -30,6 +30,7 @@ body {
   }
 
   .file{
+    transition: background-color 0.25s;
     padding: 10px;
     overflow: hidden;
     background-color: #23232e;
@@ -37,7 +38,7 @@ body {
   }
 
   .file:hover{
-    background-color:#141418;
+    background-color:#1f1f24;
   }
 
   .selected{

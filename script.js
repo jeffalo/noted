@@ -60,7 +60,7 @@ function loadFiles(){
             loadFile(item)
         })
         fileDiv.className = "file"
-        fileDiv.id = "file"
+        fileDiv.id = "file_"+item.name
         var a = document.createElement("a");
         fileDiv.appendChild(a); 
         var textnode = document.createTextNode(item.name);         // Create a text node
@@ -70,11 +70,13 @@ function loadFiles(){
 }
 
 function loadFile(item){//note the not s in loadFile
+    loadFiles()
     var fileContent = document.getElementById('contents')
     var fileName = document.getElementById('title')
     fileName.innerText = item.name
     //fileContent.innerText = item.content
     fileContent.innerText = localStorage.getItem(item.name)
+    document.getElementById('file_'+item.name).classList.add('selected')
 }
 
 
@@ -84,8 +86,8 @@ function save(){
     localStorage.setItem(fileName.innerText, fileContent.innerText)
 }
 
-function createFile(){
-    var newFileName = prompt('name it now')
+function createFile(fileName){
+    var newFileName = fileName
     localStorage.setItem(newFileName, 'no text yet')
     var oldFileList = JSON.parse(localStorage.getItem('fileList'))
     var joined = [newFileName, ...oldFileList]
@@ -94,6 +96,7 @@ function createFile(){
     files.push({name:newFileName, content:'no text yet'})
     console.log(files)
     loadFiles() 
+    loadFile({name:newFileName, content:'no text yet'})
 }
 
 function clearFiles(){//this one clears the sidebar of files

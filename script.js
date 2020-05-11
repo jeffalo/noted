@@ -83,6 +83,15 @@ function loadFiles(){
         })
         fileDiv.appendChild(editBtn)
 
+        var saveBtn = document.createElement("button")
+        saveBtn.className = "Btn"
+        saveBtn.innerHTML = '<i class="material-icons fix-button">save</i>'
+        saveBtn.addEventListener('click', function(){
+            saveTextAsFile(item.content,item.name)
+        })
+        fileDiv.appendChild(saveBtn)
+
+
         sidebar.appendChild(fileDiv)
     }
     createTools()
@@ -116,7 +125,7 @@ function save(){
     localStorage.setItem(fileName.innerText, fileContent.value)
 }
 
-function createFile(fileName){
+function createFile(fileName, fileContent){
     if(fileName == 'fileList' || fileName == "" || fileList.includes(fileName) || fileName == "notedllama"){//todo also remember to add check for used filename 
         Swal.fire({
             icon: 'error',
@@ -126,16 +135,16 @@ function createFile(fileName){
           })
     } else{
         var newFileName = fileName
-        localStorage.setItem(newFileName, 'no text yet')
+        localStorage.setItem(newFileName, fileContent)
         var oldFileList = JSON.parse(localStorage.getItem('fileList'))
         var joined = [newFileName, ...oldFileList]
         localStorage.setItem('fileList', JSON.stringify(joined))
         //fileList = JSON.parse(localStorage.getItem('fileList'))
-        files.push({name:newFileName, content:'no text yet'})
+        files.push({name:newFileName, content:fileContent})
         fileList.push(newFileName)
         console.log(files)
         loadFiles() 
-        loadFile({name:newFileName, content:'no text yet'})
+        loadFile({name:newFileName, content:fileContent})
     }
 }
 
@@ -163,9 +172,17 @@ function createTools(){
     })
     clearButton.className = "addbutton"
 
-    toolbox.appendChild(createButton)
-    toolbox.appendChild(clearButton)
+    var uploadButton = document.createElement('button')
+    uploadButton.innerHTML = '<i class="material-icons">publish</i>'
+    uploadButton.addEventListener('click', function(){
+        uploadFile()
+    })
+    uploadButton.className = "addbutton"
 
+
+    toolbox.appendChild(createButton)
+    toolbox.appendChild(uploadButton)
+    toolbox.appendChild(clearButton)
 
     sidebar.appendChild(toolbox)
 }
@@ -189,7 +206,7 @@ async function askFileName(){
           }     
     }).then((result) => {
         if (result.value) {
-            createFile(result.value)
+            createFile(result.value, 'Nothing... yet')
         }
     });
 }
@@ -246,6 +263,7 @@ function renameFile(oldName, newName){ //wish me good luck 😅
     localStorage.setItem('fileList', JSON.stringify(oldList))
     removeFile(oldName)
     loadFiles()
+    fileList.push(newName)
     loadFile({name:newName, content:oldcontent})
 }
 
@@ -315,4 +333,52 @@ function clearAll(){
     }
     loadFiles()
     showSplashScreen()
+}
+
+function saveTextAsFile(textToWrite, fileNameToSaveAs)
+{
+    var textFileAsBlob = new Blob([textToWrite], {type:'text/plain'}); 
+    var downloadLink = document.createElement("a");
+    downloadLink.download = fileNameToSaveAs;
+    downloadLink.innerHTML = "Download File";
+    if (window.webkitURL != null)
+    {
+        // Chrome allows the link to be clicked
+        // without actually adding it to the DOM.
+        downloadLink.href = window.webkitURL.createObjectURL(textFileAsBlob);
+    }
+    else
+    {
+        // Firefox requires the link to be added to the DOM
+        // before it can be clicked.
+        downloadLink.href = window.URL.createObjectURL(textFileAsBlob);
+        downloadLink.onclick = destroyClickedElement;
+        downloadLink.style.display = "none";
+        document.body.appendChild(downloadLink);
+    }
+
+    downloadLink.click();
+}
+
+async function uploadFile(){
+    const { value: file } = await Swal.fire({
+        title: 'Select text file',
+        input: 'file',
+        inputAttributes: {
+          'accept': 'text/*',
+          'aria-label': 'Upload a text file',
+          'id':'fileUploader'
+        }
+      })
+      
+      if (file) {
+        const reader = new FileReader()
+        console.log(fileUploader.value)
+        reader.onload = (e) => {
+          console.log(reader.result)
+          createFile(file.name, reader.result)
+        }
+        reader.readAsText(file)
+        
+      }
 }

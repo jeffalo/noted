@@ -68,16 +68,16 @@ function loadFiles(){
         var textnode = document.createTextNode(item.name);         // Create a text node
         a.appendChild(textnode); 
         var deleteBtn = document.createElement("button")
-        deleteBtn.className = "deleteBtn"
-        deleteBtn.innerText = "x"
+        deleteBtn.className = "Btn"
+        deleteBtn.innerHTML = '<i class="material-icons fix-button">delete</i>'
         deleteBtn.addEventListener('click', function(){
             removeFile(item.name)
         })
         fileDiv.appendChild(deleteBtn)
 
         var editBtn = document.createElement("button")
-        editBtn.className = "deleteBtn"
-        editBtn.innerText = "r"
+        editBtn.className = "Btn"
+        editBtn.innerHTML = '<i class="material-icons fix-button">edit</i>'
         editBtn.addEventListener('click', function(){
             askRenameFile(item.name)
         })
@@ -236,8 +236,12 @@ async function askRenameFile(oldName){
         title: "New file name",
         text: "What do you want to rename this awesome file to?",
         input: 'text',
+        inputValue: oldName,
         showCancelButton: true,
         inputValidator: (value) => {
+            if(value == oldName){
+                return 'You have to actually... you know... change the name?'
+            }
             if (!value) {
               return 'You need to name it something!'
             }

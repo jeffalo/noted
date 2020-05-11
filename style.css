@@ -107,18 +107,25 @@ body {
                                   supported by Chrome, Edge, Opera and Firefox */
 }
 
-.deleteBtn{
+.Btn{
   float: right;
   background-color: #1f1f29;
   border-radius: 100%;
   border: none;
   color: white;
-  width: 25px;
-  height: 25px;
+  width: 30px;
+  height: 30px;
   cursor: pointer;
   transition: background-color 0.25s;
 }
-.deleteBtn:hover{
+.Btn:hover{
   background-color:#131325;
 }
-.deleteBtn:focus {outline:0;}
+.Btn:focus {outline:0;}
+
+.fix-button{
+  font-size:20px !important;
+  text-align: center !important;
+  vertical-align: middle !important;
+  line-height: 25px !important;
+}

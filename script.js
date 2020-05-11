@@ -90,12 +90,15 @@ function loadFiles(){
 
 function loadFile(item){//note the not s in loadFile
     loadFiles()
+    var splashtext = document.getElementById('splashtext')
+    splashtext.classList.add('hidden')
     var fileContent = document.getElementById('contents')
     var fileName = document.getElementById('title')
+    fileContent.classList.remove('hidden')
     fileName.innerText = item.name
-    fileContent.setAttribute('contenteditable', true);
+    //fileContent.setAttribute('contenteditable', true);
     //fileContent.innerText = item.content
-    fileContent.innerHTML = localStorage.getItem(item.name)
+    fileContent.value = localStorage.getItem(item.name)
     var selectionDiv = document.getElementById('file_'+item.name)
     if(selectionDiv == null){
        console.log('pfft doesnt exist u idot')
@@ -103,14 +106,14 @@ function loadFile(item){//note the not s in loadFile
     } else{
         document.getElementById('file_'+item.name).classList.add('selected')
     }
-    
+    autoExpand(fileContent);
 }
 
 
 function save(){
     var fileContent = document.getElementById('contents')
     var fileName = document.getElementById('title')
-    localStorage.setItem(fileName.innerText, fileContent.innerHTML)
+    localStorage.setItem(fileName.innerText, fileContent.value)
 }
 
 function createFile(fileName){
@@ -137,7 +140,7 @@ function createFile(fileName){
 }
 
 function clearFiles(){//this one clears the sidebar of files
-   document.getElementById('sidebar').innerHTML = `        <div class="noselect">
+   document.getElementById('sidebar').innerHTML = `        <div onclick="showSplashScreen()" class="noselect">
    <h1 class="logo"><i class="material-icons">description</i> noted</h1>
 </div><hr>`
 }
@@ -200,11 +203,15 @@ function removeFile(name){
 }
 
 function showSplashScreen(){
+    loadFiles()
     var fileContent = document.getElementById('contents')
     var fileName = document.getElementById('title')
     fileName.innerText = 'noted text editor by jeffalo'
-    fileContent.innerHTML = 'select a document or create one with the panel on the left. <br><br> suggestions, feedback or issues? check out the <a class="llama" target="_blank" href="https://github.com/JeffaloBob/noted">GitHub repo.</a>'
-    fileContent.setAttribute('contenteditable', false);
+    fileContent.classList.add('hidden')
+    var splashtext = document.getElementById('splashtext')
+    splashtext.classList.remove('hidden')
+    splashtext.innerHTML = 'select a document or create one with the panel on the left. <br><br> suggestions, feedback or issues? check out the <a class="llama" target="_blank" href="https://github.com/JeffaloBob/noted">GitHub repo.</a>'
+    //fileContent.setAttribute('contenteditable', false);
 }
 
 function renameFile(oldName, newName){ //wish me good luck 😅
@@ -258,3 +265,34 @@ async function askRenameFile(oldName){
         }
     });
 }
+
+
+
+
+
+
+
+
+var autoExpand = function (field) {
+
+	// Reset field height
+	field.style.height = 'inherit';
+
+	// Get the computed styles for the element
+	var computed = window.getComputedStyle(field);
+
+	// Calculate the height
+	var height = parseInt(computed.getPropertyValue('border-top-width'), 10)
+	             + parseInt(computed.getPropertyValue('padding-top'), 10)
+	             + field.scrollHeight
+	             + parseInt(computed.getPropertyValue('padding-bottom'), 10)
+	             + parseInt(computed.getPropertyValue('border-bottom-width'), 10);
+
+	field.style.height = height + 'px';
+
+};
+
+document.addEventListener('input', function (event) {
+	if (event.target.tagName.toLowerCase() !== 'textarea') return;
+	autoExpand(event.target);
+}, false);

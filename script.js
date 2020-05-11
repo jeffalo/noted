@@ -78,7 +78,7 @@ function loadFile(item){//note the not s in loadFile
     fileName.innerText = item.name
     fileContent.setAttribute('contenteditable', true);
     //fileContent.innerText = item.content
-    fileContent.innerText = localStorage.getItem(item.name)
+    fileContent.innerHTML = localStorage.getItem(item.name)
     document.getElementById('file_'+item.name).classList.add('selected')
 }
 
@@ -86,7 +86,7 @@ function loadFile(item){//note the not s in loadFile
 function save(){
     var fileContent = document.getElementById('contents')
     var fileName = document.getElementById('title')
-    localStorage.setItem(fileName.innerText, fileContent.innerText)
+    localStorage.setItem(fileName.innerText, fileContent.innerHTML)
 }
 
 function createFile(fileName){

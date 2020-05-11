@@ -8,7 +8,7 @@ if (localStorage.getItem("fileList") === null) {
     console.log('new user')
     var exampleFileList = JSON.stringify(['example'])
     localStorage.setItem('fileList',exampleFileList)
-    localStorage.setItem('example','welcome to noted, this is an example file.')
+    localStorage.setItem('example','welcome to noted, this is an example file!')
 }
 
 window.onload = function(){
@@ -58,12 +58,15 @@ function loadFiles(){
         console.log(item)
         var sidebar = document.getElementById('sidebar')
         var fileDiv = document.createElement("div");
+
+
         fileDiv.addEventListener('click', function(){
             loadFile(item)
         })
         fileDiv.className = "file"
         fileDiv.id = "file_"+item.name
         var a = document.createElement("a");
+        a.className = 'asdf-container'
         fileDiv.appendChild(a); 
         var textnode = document.createTextNode(item.name);         // Create a text node
         a.appendChild(textnode); 
@@ -202,6 +205,9 @@ async function askFileName(){
             }
             if(fileList.includes(value)){
                 return 'Sorry, that name is taken. (Deja vu?)'
+            }
+            if(value == 'test'){
+                return '<a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" class="llama">Sorry, that name is reserved</a>'
             }
           }     
     }).then((result) => {

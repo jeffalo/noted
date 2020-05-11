@@ -235,7 +235,7 @@ function renameFile(oldName, newName){ //wish me good luck 😅
     localStorage.setItem('fileList', JSON.stringify(oldList))
     removeFile(oldName)
     loadFiles()
-    loadFile(newName)
+    loadFile({name:newName, content:oldcontent})
 }
 
 async function askRenameFile(oldName){

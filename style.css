@@ -19,7 +19,7 @@ body {
     text-decoration: none;
     font-size: 20px;
     color: #818181;
-    display: block;
+    display: inline;
   }
   .sidenav h1 {
     padding: 6px 8px 6px 16px;
@@ -106,3 +106,19 @@ body {
             user-select: none; /* Non-prefixed version, currently
                                   supported by Chrome, Edge, Opera and Firefox */
 }
+
+.deleteBtn{
+  float: right;
+  background-color: #38384b;
+  border-radius: 100%;
+  border: none;
+  color: white;
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+  transition: background-color 0.25s;
+}
+.deleteBtn:hover{
+  background-color:#131325;
+}
+.deleteBtn:focus {outline:0;}

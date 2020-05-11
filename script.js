@@ -66,6 +66,13 @@ function loadFiles(){
         fileDiv.appendChild(a); 
         var textnode = document.createTextNode(item.name);         // Create a text node
         a.appendChild(textnode); 
+        var deleteBtn = document.createElement("button")
+        deleteBtn.className = "deleteBtn"
+        deleteBtn.innerText = "x"
+        deleteBtn.addEventListener('click', function(){
+            removeFile(item.name)
+        })
+        fileDiv.appendChild(deleteBtn)
         sidebar.appendChild(fileDiv)
     }
     createTools()
@@ -79,7 +86,14 @@ function loadFile(item){//note the not s in loadFile
     fileContent.setAttribute('contenteditable', true);
     //fileContent.innerText = item.content
     fileContent.innerHTML = localStorage.getItem(item.name)
-    document.getElementById('file_'+item.name).classList.add('selected')
+    var selectionDiv = document.getElementById('file_'+item.name)
+    if(selectionDiv == null){
+       console.log('pfft doesnt exist u idot')
+       showSplashScreen()
+    } else{
+        document.getElementById('file_'+item.name).classList.add('selected')
+    }
+    
 }
 
 
@@ -173,4 +187,12 @@ function removeFile(name){
     //clearFiles()
     //loadFileList()
     loadFiles()
+}
+
+function showSplashScreen(){
+    var fileContent = document.getElementById('contents')
+    var fileName = document.getElementById('title')
+    fileName.innerText = 'noted text editor by jeffalo'
+    fileContent.innerHTML = 'select a document with the panel on the left'
+    fileContent.setAttribute('contenteditable', true);
 }

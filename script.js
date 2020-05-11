@@ -73,7 +73,8 @@ function loadFile(item){//note the not s in loadFile
     var fileContent = document.getElementById('contents')
     var fileName = document.getElementById('title')
     fileName.innerText = item.name
-    fileContent.innerText = item.content
+    //fileContent.innerText = item.content
+    fileContent.innerText = localStorage.getItem(item.name)
 }
 
 

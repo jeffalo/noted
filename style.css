@@ -85,6 +85,11 @@ body {
     text-decoration: none;
   }
   i { vertical-align: middle !important; padding-bottom: 5px;}
+  hr {
+    border: 2px solid #1f1f24;
+    border-radius: 5px;
+  }
+
 /*   body.swal2-shown > [aria-hidden="true"] {
     filter: blur(10px);
   }

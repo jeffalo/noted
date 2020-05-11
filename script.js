@@ -26,6 +26,7 @@ function loadFileList(){
         var lclstrg = localStorage.getItem(item)
         var objectified = {name:item, content:lclstrg};
         files.push(objectified)
+        //fileList.push(objectified.name)
         console.log(files)
     }
 }
@@ -104,6 +105,7 @@ function createFile(fileName){
         localStorage.setItem('fileList', JSON.stringify(joined))
         //fileList = JSON.parse(localStorage.getItem('fileList'))
         files.push({name:newFileName, content:'no text yet'})
+        fileList.push(newFileName)
         console.log(files)
         loadFiles() 
         loadFile({name:newFileName, content:'no text yet'})
@@ -111,9 +113,9 @@ function createFile(fileName){
 }
 
 function clearFiles(){//this one clears the sidebar of files
-   document.getElementById('sidebar').innerHTML = `        <div class="file">
+   document.getElementById('sidebar').innerHTML = `        <div class="">
    <h1 class="logo"><i class="material-icons">description</i> noted</h1>
-</div>`
+</div><hr>`
 }
 
 function createTools(){

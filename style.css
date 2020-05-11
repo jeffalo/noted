@@ -4,7 +4,7 @@ body {
 
 .sidenav {
     height: 100%;
-    width: 15%;
+    width: 225px;
     position: fixed;
     z-index: 1;
     top: 0;
@@ -47,7 +47,7 @@ body {
 
 
   .main {
-    margin-left: 15%; /* Same as the width of the sidenav */
+    margin-left: 225px; /* Same as the width of the sidenav */
     font-size: 20px; /* Increased text to enable scrolling */
     padding: 0px 10px;
   }
@@ -80,7 +80,7 @@ body {
   }
   .addbutton:focus {outline:0;}
   .llama{
-    color:#02b4f0;
+    color:#00a4db;
     font-weight: bold;
     text-decoration: none;
   }

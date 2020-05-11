@@ -15,6 +15,7 @@ window.onload = function(){
     console.log('haha funny joke') //debugging at its finiest
     loadFileList();
     loadFiles()
+    showSplashScreen()
 }
 
 function loadFileList(){
@@ -73,6 +74,15 @@ function loadFiles(){
             removeFile(item.name)
         })
         fileDiv.appendChild(deleteBtn)
+
+        var editBtn = document.createElement("button")
+        editBtn.className = "deleteBtn"
+        editBtn.innerText = "r"
+        editBtn.addEventListener('click', function(){
+            askRenameFile(item.name)
+        })
+        fileDiv.appendChild(editBtn)
+
         sidebar.appendChild(fileDiv)
     }
     createTools()
@@ -137,7 +147,7 @@ function createTools(){
     var toolbox = document.createElement('div')
     toolbox.className = "toolbox"
     var createButton = document.createElement('button')
-    createButton.innerText = "new"
+    createButton.innerHTML = '<i class="material-icons">add</i>'
     createButton.addEventListener('click', function(){
         askFileName()
     })
@@ -193,6 +203,54 @@ function showSplashScreen(){
     var fileContent = document.getElementById('contents')
     var fileName = document.getElementById('title')
     fileName.innerText = 'noted text editor by jeffalo'
-    fileContent.innerHTML = 'select a document with the panel on the left'
-    fileContent.setAttribute('contenteditable', true);
+    fileContent.innerHTML = 'select a document or create one with the panel on the left. <br><br> suggestions, feedback or issues? check out the <a class="llama" target="_blank" href="https://github.com/JeffaloBob/noted">GitHub repo.</a>'
+    fileContent.setAttribute('contenteditable', false);
+}
+
+function renameFile(oldName, newName){ //wish me good luck 😅
+    var oldcontent = localStorage.getItem(oldName)
+    //localStorage.removeItem(oldName)
+    
+    //now the actual thing is renamed, so now we have to chnage in in the dicitonary
+    var oldList = JSON.parse(localStorage.getItem('fileList'))
+
+    //var index = oldList.indexOf(oldName)
+    //oldList[index] = newName
+    //localStorage.setItem('fileList', JSON.stringify(oldList))
+
+    //var index2 = fileList.indexOf(oldName)
+    //fileList[index2] = newName
+
+    
+    localStorage.setItem(newName, oldcontent)
+    files.push({name:newName, content:oldcontent})
+    oldList.push(newName)
+    localStorage.setItem('fileList', JSON.stringify(oldList))
+    removeFile(oldName)
+    loadFiles()
+    loadFile(newName)
+}
+
+async function askRenameFile(oldName){
+    Swal.fire({
+        title: "New file name",
+        text: "What do you want to rename this awesome file to?",
+        input: 'text',
+        showCancelButton: true,
+        inputValidator: (value) => {
+            if (!value) {
+              return 'You need to name it something!'
+            }
+            if(value == 'fileList'){
+                return 'Sorry, that name is reserved'
+            }
+            if(fileList.includes(value)){
+                return 'Sorry, that name is taken. (Deja vu?)'
+            }
+          }     
+    }).then((result) => {
+        if (result.value) {
+            renameFile(oldName, result.value)
+        }
+    });
 }

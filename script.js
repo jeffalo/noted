@@ -8,7 +8,7 @@ if (localStorage.getItem("fileList") === null) {
     console.log('new user')
     var exampleFileList = JSON.stringify(['example'])
     localStorage.setItem('fileList',exampleFileList)
-    localStorage.setItem('example','welcome to noted, this is an example file..')
+    localStorage.setItem('example','welcome to noted, this is an example file.')
 }
 
 window.onload = function(){
@@ -113,7 +113,7 @@ function createFile(fileName){
 }
 
 function clearFiles(){//this one clears the sidebar of files
-   document.getElementById('sidebar').innerHTML = `        <div class="">
+   document.getElementById('sidebar').innerHTML = `        <div class="noselect">
    <h1 class="logo"><i class="material-icons">description</i> noted</h1>
 </div><hr>`
 }
@@ -154,4 +154,12 @@ async function askFileName(){
             createFile(result.value)
         }
     });
+}
+
+function removeFile(name){
+    localStorage.removeItem(name)
+    var whats = JSON.parse(localStorage.getItem('fileList'))
+    var index = whats.indexOf(name)
+    whats.splice(index, 1)
+    localStorage.setItem('fileList', JSON.stringify(whats))
 }

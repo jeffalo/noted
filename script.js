@@ -89,21 +89,30 @@ function save(){
 }
 
 function createFile(fileName){
-    var newFileName = fileName
-    localStorage.setItem(newFileName, 'no text yet')
-    var oldFileList = JSON.parse(localStorage.getItem('fileList'))
-    var joined = [newFileName, ...oldFileList]
-    localStorage.setItem('fileList', JSON.stringify(joined))
-    //fileList = JSON.parse(localStorage.getItem('fileList'))
-    files.push({name:newFileName, content:'no text yet'})
-    console.log(files)
-    loadFiles() 
-    loadFile({name:newFileName, content:'no text yet'})
+    if(fileName == 'fileList' || fileName == "" || fileList.includes(fileName) || fileName == "notedllama"){//todo also remember to add check for used filename 
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'File name error (You should never see this screen)',
+            footer: '<a class="llama" href="https://i.etsystatic.com/14058045/r/il/d17ec2/1488837902/il_570xN.1488837902_c9os.jpg" target="_blank">picture of llama to cheer you up</a>'
+          })
+    } else{
+        var newFileName = fileName
+        localStorage.setItem(newFileName, 'no text yet')
+        var oldFileList = JSON.parse(localStorage.getItem('fileList'))
+        var joined = [newFileName, ...oldFileList]
+        localStorage.setItem('fileList', JSON.stringify(joined))
+        //fileList = JSON.parse(localStorage.getItem('fileList'))
+        files.push({name:newFileName, content:'no text yet'})
+        console.log(files)
+        loadFiles() 
+        loadFile({name:newFileName, content:'no text yet'})
+    }
 }
 
 function clearFiles(){//this one clears the sidebar of files
    document.getElementById('sidebar').innerHTML = `        <div class="file">
-   <h1><i class="material-icons">description</i> LOGO</h1>
+   <h1 class="logo"><i class="material-icons">description</i> noted</h1>
 </div>`
 }
 
@@ -114,8 +123,33 @@ function createTools(){
     var createButton = document.createElement('button')
     createButton.innerText = "new"
     createButton.addEventListener('click', function(){
-        createFile(prompt('file name'))
+        askFileName()
     })
+    createButton.className = "addbutton"
     toolbox.appendChild(createButton)
     sidebar.appendChild(toolbox)
+}
+
+async function askFileName(){
+    Swal.fire({
+        title: "File name",
+        text: "What do you want to name this awesome file?",
+        input: 'text',
+        showCancelButton: true,
+        inputValidator: (value) => {
+            if (!value) {
+              return 'You need to name it something!'
+            }
+            if(value == 'fileList'){
+                return 'Sorry, that name is reserved'
+            }
+            if(fileList.includes(value)){
+                return 'Sorry, that name is taken. (Deja vu?)'
+            }
+          }     
+    }).then((result) => {
+        if (result.value) {
+            createFile(result.value)
+        }
+    });
 }

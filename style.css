@@ -65,3 +65,29 @@ body {
     position: fixed;
     bottom: 0;
   }
+  .addbutton{
+    background-color: #0e0e11;
+    border-radius: 3px;
+    border: none;
+    color: white;
+    margin: 10px;
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.25s;
+  }
+  .addbutton:hover{
+    background-color:#1f1f24;
+  }
+  .addbutton:focus {outline:0;}
+  .llama{
+    color:#02b4f0;
+    font-weight: bold;
+    text-decoration: none;
+  }
+  i { vertical-align: middle !important; padding-bottom: 5px;}
+/*   body.swal2-shown > [aria-hidden="true"] {
+    filter: blur(10px);
+  }
+  body > * {
+    transition: 0.15s filter linear;
+} */ /* for a rainy day*/ 

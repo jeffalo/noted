@@ -162,5 +162,15 @@ function removeFile(name){
     var index = whats.indexOf(name)
     whats.splice(index, 1)
     localStorage.setItem('fileList', JSON.stringify(whats))
-}
 
+    var index2 = fileList.indexOf(name)
+    fileList.splice(index2, 1)
+
+    var removeIndex = files.map(function(item) { return item.name; })
+                       .indexOf(name);
+
+    ~removeIndex && files.splice(removeIndex, 1);
+    //clearFiles()
+    //loadFileList()
+    loadFiles()
+}

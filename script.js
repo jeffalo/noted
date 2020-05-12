@@ -448,18 +448,38 @@ const backend = (() => {
     }
 })();
 
-(async()=>{
-  let params=new URLSearchParams(location.search)
-  let importId=params.get("import")
-  if(importId){
-    history.pushState(null, document.title, "?")
-    let {text}=await backend.get(importId)
-    let newlineIndex=text.indexOf("\n")
-    newlineIndex=newlineIndex==-1?0:newlineIndex;
-    createFile(text.slice(0,newlineIndex)||"Untitled",text.slice(newlineIndex))
-  }
+(async() => {
+    let params = new URLSearchParams(location.search)
+    let importId = params.get("import")
+    if (importId) {
+        let loadToast = swal.fire({
+            title: 'Loading shared file...',
+            showCancelButton: false,
+            showConfirmButton: false,
+            toast: true,
+            position: "top-right",
+            icon: "info"
+        })
+        history.pushState(null, document.title, "?")
+        let {text} = await backend.get(importId)
+        let newlineIndex = text.indexOf("\n")
+        newlineIndex = newlineIndex == -1
+            ? 0
+            : newlineIndex;
+        loadToast.closeToast()
+        createFile(text.slice(0, newlineIndex) || "Untitled", text.slice(newlineIndex))
+        swal.fire({
+            title: 'File Loaded!',
+            showCancelButton: false,
+            showConfirmButton: false,
+            toast: true,
+            position: "top-right",
+            icon: "success",
+            timer: 5000
+        })
+    }
 })()
-    
+
 loadFileList()
 loadFiles()
 showSplashScreen()

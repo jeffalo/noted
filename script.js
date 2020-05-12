@@ -224,23 +224,44 @@ async function askFileName(){
     });
 }
 
-function removeFile(name){
-    localStorage.removeItem(name)
-    var whats = JSON.parse(localStorage.getItem('fileList'))
-    var index = whats.indexOf(name)
-    whats.splice(index, 1)
-    localStorage.setItem('fileList', JSON.stringify(whats))
-
-    var index2 = fileList.indexOf(name)
-    fileList.splice(index2, 1)
-
-    var removeIndex = files.map(function(item) { return item.name; })
-                       .indexOf(name);
-
-    ~removeIndex && files.splice(removeIndex, 1);
-    //clearFiles()
-    //loadFileList()
-    loadFiles()
+async function removeFile(name){
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete ' + name + '!'
+      }).then((result) => {
+        if (result.value) {
+            localStorage.removeItem(name)
+            var whats = JSON.parse(localStorage.getItem('fileList'))
+            var index = whats.indexOf(name)
+            whats.splice(index, 1)
+            localStorage.setItem('fileList', JSON.stringify(whats))
+        
+            var index2 = fileList.indexOf(name)
+            fileList.splice(index2, 1)
+        
+            var removeIndex = files.map(function(item) { return item.name; })
+                               .indexOf(name);
+        
+            ~removeIndex && files.splice(removeIndex, 1);
+            //clearFiles()
+            //loadFileList()
+            loadFiles()
+            swal.fire({
+                title: name +' was deleted',
+                showCancelButton: false,
+                showConfirmButton: false,
+                timer: 1500,
+                toast: true,
+                position: "top-right",
+                icon: "success",
+              })          
+        }
+      })
 }
 
 function showSplashScreen(){
@@ -355,7 +376,16 @@ async function clearAll(){
                 removeFile(file)
             }
             loadFiles()
-            showSplashScreen()          
+            showSplashScreen()
+            swal.fire({
+                title: 'Notes cleared',
+                showCancelButton: false,
+                showConfirmButton: false,
+                timer: 1500,
+                toast: true,
+                position: "top-right",
+                icon: "success",
+              })          
         }
       })
 

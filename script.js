@@ -91,7 +91,7 @@ function renderFileList() {
     moreBtn.title = "More Options";
     moreBtn.addEventListener("click", function() {
       menu(moreBtn, {
-        Share: _ => share(currentFile),
+        Share: _ => share(files[currentFile]),
         Download: _ =>
           saveTextAsFile(files[currentFile].content, files[currentFile].name)
       });

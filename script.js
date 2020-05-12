@@ -73,6 +73,7 @@ function loadFiles(){
         var deleteBtn = document.createElement("button")
         deleteBtn.className = "Btn"
         deleteBtn.innerHTML = '<i class="material-icons fix-button">delete</i>'
+        deleteBtn.title = 'Delete this note'
         deleteBtn.addEventListener('click', function(){
             removeFile(item.name)
         })
@@ -81,6 +82,7 @@ function loadFiles(){
         var editBtn = document.createElement("button")
         editBtn.className = "Btn"
         editBtn.innerHTML = '<i class="material-icons fix-button">edit</i>'
+        editBtn.title = 'Rename note'
         editBtn.addEventListener('click', function(){
             askRenameFile(item.name)
         })
@@ -89,6 +91,7 @@ function loadFiles(){
         var saveBtn = document.createElement("button")
         saveBtn.className = "Btn"
         saveBtn.innerHTML = '<i class="material-icons fix-button">save</i>'
+        saveBtn.title = 'Save note as text file'
         saveBtn.addEventListener('click', function(){
             saveTextAsFile(item.content,item.name)
         })
@@ -163,6 +166,7 @@ function createTools(){
     toolbox.className = "toolbox"
     var createButton = document.createElement('button')
     createButton.innerHTML = '<i class="material-icons">add</i>'
+    createButton.title = 'Create new note'
     createButton.addEventListener('click', function(){
         askFileName()
     })
@@ -170,6 +174,7 @@ function createTools(){
 
     var clearButton = document.createElement('button')
     clearButton.innerHTML = '<i class="material-icons">delete_sweep</i>'
+    clearButton.title = 'Delete all notes'
     clearButton.addEventListener('click', function(){
         clearAll()
     })
@@ -177,6 +182,7 @@ function createTools(){
 
     var uploadButton = document.createElement('button')
     uploadButton.innerHTML = '<i class="material-icons">publish</i>'
+    uploadButton.title = 'Upload note from computer'
     uploadButton.addEventListener('click', function(){
         uploadFile()
     })

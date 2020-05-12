@@ -3,6 +3,22 @@ let fileList = [];
 const filesDiv = document.querySelector('.files')
 const splashtext = document.getElementById('splashtext')
 
+document
+    .querySelector(".addbutton")
+    .addEventListener('click', function () {
+        askFileName()
+    })
+document
+    .querySelector(".delete-allbutton")
+    .addEventListener('click', function () {
+        clearAll()
+    })
+document
+    .querySelector(".uploadbutton")
+    .addEventListener('click', function () {
+        uploadFile()
+    })
+
 if (localStorage.getItem("fileList") === null) {
     console.log('🌱 New User')
     localStorage.setItem('fileList', '["Welcome"]')
@@ -26,7 +42,7 @@ function loadFiles() {
     clearFiles()
     for (let item of files) {
         var fileDiv = document.createElement("div");
-        fileDiv.addEventListener('click', function() {
+        fileDiv.addEventListener('click', function () {
             loadFile(item)
         })
         fileDiv.className = "file"
@@ -41,7 +57,7 @@ function loadFiles() {
         deleteBtn.className = "Btn"
         deleteBtn.innerHTML = '<i class="material-icons fix-button">delete</i>'
         deleteBtn.title = 'Delete this note'
-        deleteBtn.addEventListener('click', function() {
+        deleteBtn.addEventListener('click', function () {
             askRemoveFile(item.name)
         })
         fileDiv.appendChild(deleteBtn)
@@ -50,7 +66,7 @@ function loadFiles() {
         editBtn.className = "Btn"
         editBtn.innerHTML = '<i class="material-icons fix-button">edit</i>'
         editBtn.title = 'Rename note'
-        editBtn.addEventListener('click', function() {
+        editBtn.addEventListener('click', function () {
             askRenameFile(item.name)
         })
         fileDiv.appendChild(editBtn)
@@ -59,7 +75,7 @@ function loadFiles() {
         saveBtn.className = "Btn"
         saveBtn.innerHTML = '<i class="material-icons fix-button">save</i>'
         saveBtn.title = 'Save note as text file'
-        saveBtn.addEventListener('click', function() {
+        saveBtn.addEventListener('click', function () {
             saveTextAsFile(item.content, item.name)
         })
         fileDiv.appendChild(saveBtn)
@@ -70,10 +86,14 @@ function loadFiles() {
 
 function loadFile(item) {
     loadFiles()
-    splashtext.classList.add('hidden')
+    splashtext
+        .classList
+        .add('hidden')
     var fileContent = document.getElementById('contents')
     var fileName = document.getElementById('title')
-    fileContent.classList.remove('hidden')
+    fileContent
+        .classList
+        .remove('hidden')
     fileName.innerText = item.name
     fileContent.value = localStorage.getItem(item.name)
     var selectionDiv = document.getElementById('file_' + item.name)
@@ -81,7 +101,10 @@ function loadFile(item) {
         console.log("🕳 selectionDiv doesn't exist")
         showSplashScreen()
     } else {
-        document.getElementById('file_' + item.name).classList.add('selected')
+        document
+            .getElementById('file_' + item.name)
+            .classList
+            .add('selected')
     }
     autoExpand(fileContent);
 }
@@ -94,31 +117,29 @@ function save() {
 
 function createFile(fileName, fileContent) {
     if (fileName == 'fileList' || fileName == "" || fileList.includes(fileName) || fileName == "notedllama") {
-        //todo also remember to add check for used filename 
+        //todo also remember to add check for used filename
         Swal.fire({
             icon: 'error',
             title: 'Oops...',
             text: 'File name error (You should never see this screen)',
-            footer: '<a class="llama" href="https://i.etsystatic.com/14058045/r/il/d17ec2/1488837902/il_570xN.1488837902_c9os.jpg" target="_blank">picture of llama to cheer you up</a>'
+            footer: '<a class="llama" href="https://i.etsystatic.com/14058045/r/il/d17ec2/1488837902/' +
+                    'il_570xN.1488837902_c9os.jpg" target="_blank">picture of llama to cheer you up</' +
+                    'a>'
         })
     } else {
         var newFileName = fileName
         localStorage.setItem(newFileName, fileContent)
         var oldFileList = JSON.parse(localStorage.getItem('fileList'))
-        var joined = [newFileName, ...oldFileList]
+        var joined = [
+            newFileName, ...oldFileList
+        ]
         localStorage.setItem('fileList', JSON.stringify(joined))
-            //fileList = JSON.parse(localStorage.getItem('fileList'))
-        files.push({
-            name: newFileName,
-            content: fileContent
-        })
+        //fileList = JSON.parse(localStorage.getItem('fileList'))
+        files.push({name: newFileName, content: fileContent})
         fileList.push(newFileName)
         console.log(files)
         loadFiles()
-        loadFile({
-            name: newFileName,
-            content: fileContent
-        })
+        loadFile({name: newFileName, content: fileContent})
     }
 }
 
@@ -144,7 +165,8 @@ async function askFileName() {
                 return 'Sorry, that name is taken. (Deja vu?)'
             }
             if (value == 'test') {
-                return '<a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" class="llama">Sorry, that name is reserved</a>'
+                return '<a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" class="llama">Sorry, that ' +
+                    'name is reserved</a>'
             }
         }
     }).then((result) => {
@@ -174,13 +196,12 @@ async function askRemoveFile(name) {
             var index2 = fileList.indexOf(name)
             fileList.splice(index2, 1)
 
-            var removeIndex = files.map(function(item) {
+            var removeIndex = files.map(function (item) {
                 return item.name;
             }).indexOf(name);
 
             ~removeIndex && files.splice(removeIndex, 1);
-            //clearFiles()
-            //loadFileList()
+            //clearFiles() loadFileList()
             loadFiles()
             showSplashScreen()
             swal.fire({
@@ -190,7 +211,7 @@ async function askRemoveFile(name) {
                 timer: 1500,
                 toast: true,
                 position: "top-right",
-                icon: "success",
+                icon: "success"
             })
         }
     })
@@ -206,13 +227,12 @@ function removeFile(name) {
     var index2 = fileList.indexOf(name)
     fileList.splice(index2, 1)
 
-    var removeIndex = files.map(function(item) {
+    var removeIndex = files.map(function (item) {
         return item.name;
     }).indexOf(name);
 
     ~removeIndex && files.splice(removeIndex, 1);
-    //clearFiles()
-    //loadFileList()
+    //clearFiles() loadFileList()
     loadFiles()
     showSplashScreen()
 }
@@ -222,27 +242,25 @@ function showSplashScreen() {
     var fileContent = document.getElementById('contents')
     var fileName = document.getElementById('title')
     fileName.innerText = 'noted text editor by jeffalo'
-    fileContent.classList.add('hidden')
-    splashtext.classList.remove('hidden')
+    fileContent
+        .classList
+        .add('hidden')
+    splashtext
+        .classList
+        .remove('hidden')
 }
 
 function renameFile(oldName, newName) {
     var oldcontent = localStorage.getItem(oldName)
     var oldList = JSON.parse(localStorage.getItem('fileList'))
     localStorage.setItem(newName, oldcontent)
-    files.push({
-        name: newName,
-        content: oldcontent
-    })
+    files.push({name: newName, content: oldcontent})
     oldList.push(newName)
     localStorage.setItem('fileList', JSON.stringify(oldList))
     removeFile(oldName)
     loadFiles()
     fileList.push(newName)
-    loadFile({
-        name: newName,
-        content: oldcontent
-    })
+    loadFile({name: newName, content: oldcontent})
 }
 
 async function askRenameFile(oldName) {
@@ -272,7 +290,7 @@ async function askRenameFile(oldName) {
     }
 }
 
-var autoExpand = function(field) {
+var autoExpand = function (field) {
     // Reset field height
     field.style.height = 'inherit';
 
@@ -286,8 +304,8 @@ var autoExpand = function(field) {
 
 };
 
-document.addEventListener('input', function(event) {
-    if (event.target.tagName.toLowerCase() !== 'textarea')
+document.addEventListener('input', function (event) {
+    if (event.target.tagName.toLowerCase() !== 'textarea') 
         return;
     autoExpand(event.target);
 }, false);
@@ -316,38 +334,38 @@ async function clearAll() {
             timer: 1500,
             toast: true,
             position: "top-right",
-            icon: "success",
+            icon: "success"
         })
     }
 }
 
 function saveTextAsFile(textToWrite, fileNameToSaveAs) {
-    var textFileAsBlob = new Blob([textToWrite], {
-        type: 'text/plain'
-    });
+    var textFileAsBlob = new Blob([textToWrite], {type: 'text/plain'});
     var downloadLink = document.createElement("a");
     downloadLink.download = fileNameToSaveAs;
     downloadLink.innerHTML = "Download File";
     if (window.webkitURL != null) {
-        // Chrome allows the link to be clicked
-        // without actually adding it to the DOM.
-        downloadLink.href = window.webkitURL.createObjectURL(textFileAsBlob);
+        // Chrome allows the link to be clicked without actually adding it to the DOM.
+        downloadLink.href = window
+            .webkitURL
+            .createObjectURL(textFileAsBlob);
     } else {
-        // Firefox requires the link to be added to the DOM
-        // before it can be clicked.
-        downloadLink.href = window.URL.createObjectURL(textFileAsBlob);
+        // Firefox requires the link to be added to the DOM before it can be clicked.
+        downloadLink.href = window
+            .URL
+            .createObjectURL(textFileAsBlob);
         downloadLink.onclick = destroyClickedElement;
         downloadLink.style.display = "none";
-        document.body.appendChild(downloadLink);
+        document
+            .body
+            .appendChild(downloadLink);
     }
 
     downloadLink.click();
 }
 
 async function uploadFile() {
-    const {
-        value: file
-    } = await Swal.fire({
+    const {value: file} = await Swal.fire({
         title: 'Select text file',
         input: 'file',
         inputAttributes: {
@@ -385,36 +403,47 @@ function makeid(length) {
 }
 
 function escapeHtml(unsafe) {
-    return unsafe.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+    return unsafe
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
 }
 
 const backend = (() => {
     function jsonp(url) {
-        return new Promise(function(resolve, reject) {
+        return new Promise(function (resolve, reject) {
             url = new URL(url)
             var callbackName = "_jsonp_" + (new Date().valueOf()).toString(36)
-            let cleanup = function() {
+            let cleanup = function () {
                 if (script) {
                     script.remove()
                 }
                 window[callbackName] = _ => _;
             };
-            window[callbackName] = function(data) {
+            window[callbackName] = function (data) {
                 cleanup();
                 resolve(data);
             };
-            url.searchParams.set("callback", callbackName)
+            url
+                .searchParams
+                .set("callback", callbackName)
             script = document.createElement('script');
             script.src = url.href;
-            document.head.appendChild(script);
+            document
+                .head
+                .appendChild(script);
         });
     };
     return {
         save: text => {
-            return jsonp("https://script.google.com/macros/s/AKfycbz1xZwaVsmLID617VGxyHTbUtstaTlw07NAn44Ja7OrLyTpXIYG/exec?route=save&text=" + encodeURIComponent(text))
+            return jsonp("https://script.google.com/macros/s/AKfycbz1xZwaVsmLID617VGxyHTbUtstaTlw07NAn44Ja" +
+                    "7OrLyTpXIYG/exec?route=save&text=" + encodeURIComponent(text))
         },
         get: id => {
-            return jsonp("https://script.google.com/macros/s/AKfycbz1xZwaVsmLID617VGxyHTbUtstaTlw07NAn44Ja7OrLyTpXIYG/exec?route=get&id=" + encodeURIComponent(id))
+            return jsonp("https://script.google.com/macros/s/AKfycbz1xZwaVsmLID617VGxyHTbUtstaTlw07NAn44Ja" +
+                    "7OrLyTpXIYG/exec?route=get&id=" + encodeURIComponent(id))
         }
     }
 })();

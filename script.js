@@ -483,3 +483,34 @@ function makeid(length) {
          .replace(/"/g, "&quot;")
          .replace(/'/g, "&#039;");
  }
+
+const backend = (() => {
+    function jsonp(url) {
+        return new Promise(function(resolve, reject) {
+            url = new URL(url)
+            var callbackName = "_jsonp_" + (new Date().valueOf()).toString(36)
+            let cleanup = function() {
+                if (script) {
+                    script.remove()
+                }
+                window[callbackName] = _ => _;
+            };
+            window[callbackName] = function(data) {
+                cleanup();
+                resolve(data);
+            };
+            url.searchParams.set("callback", callbackName)
+            script = document.createElement('script');
+            script.src = url.href;
+            document.head.appendChild(script);
+        });
+    };
+    return {
+        save: text => {
+            return jsonp("https://script.google.com/macros/s/AKfycbz1xZwaVsmLID617VGxyHTbUtstaTlw07NAn44Ja7OrLyTpXIYG/exec?route=save&text=" + encodeURIComponent(text))
+        },
+        get: id => {
+            return jsonp("https://script.google.com/macros/s/AKfycbz1xZwaVsmLID617VGxyHTbUtstaTlw07NAn44Ja7OrLyTpXIYG/exec?route=get&id=" + encodeURIComponent(id))
+        }
+    }
+})();

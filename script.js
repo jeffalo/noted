@@ -76,7 +76,7 @@ function loadFiles(){
         deleteBtn.innerHTML = '<i class="material-icons fix-button">delete</i>'
         deleteBtn.title = 'Delete this note'
         deleteBtn.addEventListener('click', function(){
-            removeFile(item.name)
+            askRemoveFile(item.name)
         })
         fileDiv.appendChild(deleteBtn)
 
@@ -224,7 +224,7 @@ async function askFileName(){
     });
 }
 
-async function removeFile(name){
+async function askRemoveFile(name){
     Swal.fire({
         title: 'Are you sure?',
         text: "You won't be able to revert this!",
@@ -263,6 +263,26 @@ async function removeFile(name){
               })          
         }
       })
+}
+
+function removeFile(name){
+    localStorage.removeItem(name)
+    var whats = JSON.parse(localStorage.getItem('fileList'))
+    var index = whats.indexOf(name)
+    whats.splice(index, 1)
+    localStorage.setItem('fileList', JSON.stringify(whats))
+
+    var index2 = fileList.indexOf(name)
+    fileList.splice(index2, 1)
+
+    var removeIndex = files.map(function(item) { return item.name; })
+                        .indexOf(name);
+
+    ~removeIndex && files.splice(removeIndex, 1);
+    //clearFiles()
+    //loadFileList()
+    loadFiles()
+    showSplashScreen()
 }
 
 function showSplashScreen(){

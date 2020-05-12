@@ -1,17 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>noted</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📄</text></svg>">
-      <script src="script.js"></script>
-      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9" defer></script>
+    <script src="script.js" defer></script>
 
 </head>
+
 <body>
     <div id="sidebar" class="sidenav">
         <div onclick="showSplashScreen()" class="noselect">
@@ -32,11 +33,11 @@
                 <i class="material-icons">delete_sweep</i>
             </button>
         </div>
-      </div>
-      <div id="main" class="main">
+    </div>
+    <div id="main" class="main">
         <h1 oninput="save()" contenteditable="false" class="title" id="title"></h1>
         <textarea oninput="save()" contenteditable="false" class="contents" id="contents"></textarea>
-        <p id="splashtext"class="hidden">select a document or create one with the panel on the left. <br><br> suggestions, feedback or issues? check out the <a class="llama" target="_blank" href="https://github.com/JeffaloBob/noted">GitHub repo.</a></p>
-      </div>
+        <p id="splashtext" class="hidden">select a document or create one with the panel on the left. <br><br> suggestions, feedback or issues? check out the <a class="llama" target="_blank" href="https://github.com/JeffaloBob/noted">GitHub repo.</a></p>
+    </div>
 </body>
 </html>

@@ -251,6 +251,7 @@ async function removeFile(name){
             //clearFiles()
             //loadFileList()
             loadFiles()
+            showSplashScreen()
             swal.fire({
                 title: name +' was deleted',
                 showCancelButton: false,

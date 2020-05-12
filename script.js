@@ -232,7 +232,7 @@ async function askRemoveFile(name){
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete ' + name + '!'
+        confirmButtonText: 'Yes, delete ' + escapeHtml(name) + '!'
       }).then((result) => {
         if (result.value) {
             localStorage.removeItem(name)
@@ -253,7 +253,7 @@ async function askRemoveFile(name){
             loadFiles()
             showSplashScreen()
             swal.fire({
-                title: name +' was deleted',
+                title: escapeHtml(name) +' was deleted',
                 showCancelButton: false,
                 showConfirmButton: false,
                 timer: 1500,
@@ -475,3 +475,11 @@ function makeid(length) {
     return result;
  }
  
+ function escapeHtml(unsafe) {
+    return unsafe
+         .replace(/&/g, "&amp;")
+         .replace(/</g, "&lt;")
+         .replace(/>/g, "&gt;")
+         .replace(/"/g, "&quot;")
+         .replace(/'/g, "&#039;");
+ }

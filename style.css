@@ -23,7 +23,9 @@ body {
     background-color: #23232e;
     overflow-x: hidden;
     padding-top: 10px;
-    box-shadow: 0 0 5px black
+    box-shadow: 0 0 5px black;
+    display: flex;
+    flex-direction: column;
 }
 
 .sidenav a {
@@ -35,6 +37,10 @@ body {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+.file a.asdf-container {
+    margin-top: -0.25em;
 }
 
 .sidenav h1 {
@@ -52,6 +58,7 @@ body {
     overflow: hidden;
     background-color: #23232e;
     cursor: pointer;
+    align-items: center;
 }
 
 .file:hover {
@@ -87,7 +94,7 @@ body {
     justify-content: space-evenly;
 }
 
-.addbutton {
+.toolboxbutton {
     background-color: #0e0e11;
     border-radius: 100%;
     width: 50px;
@@ -100,12 +107,13 @@ body {
     transition: background-color 0.25s;
 }
 
-.addbutton:hover {
+.toolboxbutton:hover {
     background-color: #1f1f24;
 }
 
-.addbutton:focus {
+.toolboxbutton:focus {
     outline: 0;
+    box-shadow: 0 0 4px 4px #ffffff4a;
 }
 
 .llama {
@@ -214,4 +222,10 @@ textarea {
     p {
         color: white;
     }
+}
+
+
+.files {
+    flex-grow: 1;
+    overflow: auto;
 }

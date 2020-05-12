@@ -480,6 +480,28 @@ const backend = (() => {
     }
 })()
 
+async function share(file) {
+    let loadToast = swal.fire({
+        title: 'Uploading file...',
+        showCancelButton: false,
+        showConfirmButton: false,
+        toast: true,
+        position: "top-right",
+        icon: "info"
+    })
+    let {id} = await backend.save(file.name + "\n" + file.content)
+    let shareLink = new URL(location.href)
+    shareLink
+        .searchParams
+        .set("import", id)
+    loadToast.closeToast()
+    Swal.fire({
+        title: "Share",
+        text: "Your share link is " + shareLink.href,
+        showCancelButton: false
+    })
+}
+
 loadFileList()
 loadFiles()
 showSplashScreen()

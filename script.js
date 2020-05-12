@@ -169,7 +169,7 @@ function createTools(){
     createButton.className = "addbutton"
 
     var clearButton = document.createElement('button')
-    clearButton.innerHTML = '<i class="material-icons">clear_all</i>'
+    clearButton.innerHTML = '<i class="material-icons">delete_sweep</i>'
     clearButton.addEventListener('click', function(){
         clearAll()
     })

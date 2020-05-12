@@ -339,13 +339,26 @@ document.addEventListener('input', function (event) {
 	autoExpand(event.target);
 }, false);
 
-function clearAll(){
-    var fileListClear = JSON.parse(localStorage.getItem('fileList'))
-    for(let file of fileListClear){
-        removeFile(file)
-    }
-    loadFiles()
-    showSplashScreen()
+async function clearAll(){
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete everything!'
+      }).then((result) => {
+        if (result.value) {
+            var fileListClear = JSON.parse(localStorage.getItem('fileList'))
+            for(let file of fileListClear){
+                removeFile(file)
+            }
+            loadFiles()
+            showSplashScreen()          
+        }
+      })
+
 }
 
 function saveTextAsFile(textToWrite, fileNameToSaveAs)

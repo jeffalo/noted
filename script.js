@@ -64,6 +64,7 @@ function loadFiles(){
             loadFile(item)
         })
         fileDiv.className = "file"
+	fileDiv.title = item.name
         fileDiv.id = "file_"+item.name
         var a = document.createElement("a");
         a.className = 'asdf-container'

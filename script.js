@@ -1,18 +1,16 @@
-var files = [];
+let files = [];
 
-var fileList = [];
+let fileList = [];
 
-//example
+const filesDiv = document.querySelector('.files')
 
 if (localStorage.getItem("fileList") === null) {
-    console.log('new user')
-    var exampleFileList = JSON.stringify(['example'])
-    localStorage.setItem('fileList',exampleFileList)
-    localStorage.setItem('example','welcome to noted, this is an example file!')
+    console.log('🌱 New User')
+    localStorage.setItem('fileList','["Welcome"]')
+    localStorage.setItem('Welcome','Welcome to noted, this is an example file.')
 }
 
 window.onload = function(){
-    console.log('haha funny joke') //debugging at its finiest
     loadFileList();
     loadFiles()
     showSplashScreen()
@@ -20,56 +18,28 @@ window.onload = function(){
 
 function loadFileList(){
     fileList = JSON.parse(localStorage.getItem('fileList'))
-
-
     for(let item of fileList){
         console.log(item)
-        var lclstrg = localStorage.getItem(item)
-        var objectified = {name:item, content:lclstrg};
+        var objectified = {name:item, content:localStorage.getItem(item)};
         files.push(objectified)
-        //fileList.push(objectified.name)
         console.log(files)
     }
 }
 
 function loadFiles(){
     clearFiles()
-/*     var files = [
-        {
-          name: "shopping list",
-          content: "buy stuff"
-        },
-        {
-            name: "other",
-            content: "other stuff"
-        },
-        {
-            name: "friends",
-            content: "example"
-        },
-      ]; */
-
-    
-
-    //get array somehow idk
-
-
     for(let item of files){
-        console.log(item)
-        var sidebar = document.getElementById('sidebar')
         var fileDiv = document.createElement("div");
-
-
         fileDiv.addEventListener('click', function(){
             loadFile(item)
         })
         fileDiv.className = "file"
-	fileDiv.title = item.name
+	    fileDiv.title = item.name
         fileDiv.id = "file_"+item.name
         var a = document.createElement("a");
         a.className = 'asdf-container'
         fileDiv.appendChild(a); 
-        var textnode = document.createTextNode(item.name);         // Create a text node
+        var textnode = document.createTextNode(item.name);
         a.appendChild(textnode); 
         var deleteBtn = document.createElement("button")
         deleteBtn.className = "Btn"
@@ -99,12 +69,11 @@ function loadFiles(){
         fileDiv.appendChild(saveBtn)
 
 
-        sidebar.appendChild(fileDiv)
+        filesDiv.appendChild(fileDiv)
     }
-    createTools()
 }
 
-function loadFile(item){//note the not s in loadFile
+function loadFile(item){
     loadFiles()
     var splashtext = document.getElementById('splashtext')
     splashtext.classList.add('hidden')
@@ -112,12 +81,10 @@ function loadFile(item){//note the not s in loadFile
     var fileName = document.getElementById('title')
     fileContent.classList.remove('hidden')
     fileName.innerText = item.name
-    //fileContent.setAttribute('contenteditable', true);
-    //fileContent.innerText = item.content
     fileContent.value = localStorage.getItem(item.name)
     var selectionDiv = document.getElementById('file_'+item.name)
     if(selectionDiv == null){
-       console.log('pfft doesnt exist u idot')
+       console.log("🕳 selectionDiv doesn't exist")
        showSplashScreen()
     } else{
         document.getElementById('file_'+item.name).classList.add('selected')
@@ -156,45 +123,7 @@ function createFile(fileName, fileContent){
 }
 
 function clearFiles(){//this one clears the sidebar of files
-   document.getElementById('sidebar').innerHTML = `        <div onclick="showSplashScreen()" class="noselect">
-   <h1 class="logo"><i class="material-icons">description</i> noted</h1>
-</div><hr>`
-}
-
-function createTools(){
-    var sidebar = document.getElementById('sidebar') 
-    var toolbox = document.createElement('div')
-    toolbox.className = "toolbox"
-    var createButton = document.createElement('button')
-    createButton.innerHTML = '<i class="material-icons">add</i>'
-    createButton.title = 'Create new note'
-    createButton.addEventListener('click', function(){
-        askFileName()
-    })
-    createButton.className = "addbutton"
-
-    var clearButton = document.createElement('button')
-    clearButton.innerHTML = '<i class="material-icons">delete_sweep</i>'
-    clearButton.title = 'Delete all notes'
-    clearButton.addEventListener('click', function(){
-        clearAll()
-    })
-    clearButton.className = "addbutton"
-
-    var uploadButton = document.createElement('button')
-    uploadButton.innerHTML = '<i class="material-icons">publish</i>'
-    uploadButton.title = 'Upload note from computer'
-    uploadButton.addEventListener('click', function(){
-        uploadFile()
-    })
-    uploadButton.className = "addbutton"
-
-
-    toolbox.appendChild(createButton)
-    toolbox.appendChild(uploadButton)
-    toolbox.appendChild(clearButton)
-
-    sidebar.appendChild(toolbox)
+   filesDiv.innerHTML=""
 }
 
 async function askFileName(){

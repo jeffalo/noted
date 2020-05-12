@@ -1,45 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>noted</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📄</text></svg>">
+    <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📄</text></svg>"
+    />
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9" defer></script>
     <script src="script.js" defer></script>
+  </head>
 
-</head>
-
-<body>
+  <body>
     <div id="wrap">
-    <div id="sidebar" class="sidenav">
+      <div id="sidebar" class="sidenav">
         <div onclick="showSplashScreen()" class="noselect">
-            <h1 class="logo">
-                <i class="material-icons">description</i> noted</h1>
+          <h1 class="logo"><i class="material-icons">description</i> noted</h1>
         </div>
-        <hr>
-        <div class="files">
-        </div>
+        <hr />
+        <div class="files"></div>
         <div class="toolbox">
-            <button title="Create new note" class="toolboxbutton addbutton">
-                <i class="material-icons">add</i>
-            </button>
-            <button title="Upload note from computer" class="toolboxbutton uploadbutton">
-                <i class="material-icons">publish</i>
-            </button>
-            <button title="Delete all notes" class="toolboxbutton delete-allbutton">
-                <i class="material-icons">delete_sweep</i>
-            </button>
+          <button title="Create new note" class="toolboxbutton addbutton">
+            <i class="material-icons">add</i>
+          </button>
+          <button
+            title="Upload note from computer"
+            class="toolboxbutton uploadbutton"
+          >
+            <i class="material-icons">publish</i>
+          </button>
+          <button
+            title="Delete all notes"
+            class="toolboxbutton delete-allbutton"
+          >
+            <i class="material-icons">delete_sweep</i>
+          </button>
         </div>
+      </div>
+      <div id="main" class="main">
+        <h1
+          oninput="save()"
+          contenteditable="false"
+          class="title"
+          id="title"
+        ></h1>
+        <textarea
+          oninput="save()"
+          contenteditable="false"
+          class="contents"
+          id="contents"
+        ></textarea>
+        <p id="splashtext" class="hidden">
+          select a document or create one with the panel on the left.
+          <br /><br />
+          suggestions, feedback or issues? check out the
+          <a
+            class="llama"
+            target="_blank"
+            href="https://github.com/JeffaloBob/noted"
+            >GitHub repo.</a
+          >
+        </p>
+      </div>
     </div>
-    <div id="main" class="main">
-        <h1 oninput="save()" contenteditable="false" class="title" id="title"></h1>
-        <textarea oninput="save()" contenteditable="false" class="contents" id="contents"></textarea>
-        <p id="splashtext" class="hidden">select a document or create one with the panel on the left. <br><br> suggestions, feedback or issues? check out the <a class="llama" target="_blank" href="https://github.com/JeffaloBob/noted">GitHub repo.</a></p>
-    </div>
-    </div>
-</body>
+  </body>
 </html>

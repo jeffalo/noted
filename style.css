@@ -1,5 +1,5 @@
 body {
-    font-family: sans-serif;
+    font-family: system-ui, sans-serif;
   }
 
 .sidenav {
@@ -70,6 +70,9 @@ body {
   .toolbox{
     position: fixed;
     bottom: 0;
+    width: 250px;
+    display: flex;
+    justify-content: space-evenly;
   }
   .addbutton{
     background-color: #0e0e11;
@@ -125,6 +128,7 @@ body {
   height: 30px;
   cursor: pointer;
   transition: background-color 0.25s;
+  margin-left: 5px;
 }
 .Btn:hover{
   background-color:#131325;

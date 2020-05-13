@@ -33,6 +33,7 @@ function loadFileList(){
 }
 
 function loadFiles(){
+    var scroll = document.getElementById('files').scrollTop
     clearFiles()
 /*     var files = [
         {
@@ -61,9 +62,7 @@ function loadFiles(){
         var fileContainer = document.getElementById('files')
 
         fileDiv.addEventListener('click', function(){
-            var scroll = document.getElementById('files').scrollTop
             loadFile(item)
-            document.getElementById('files').scrollTop = scroll
         })
         fileDiv.className = "file"
     	fileDiv.title = item.name
@@ -104,6 +103,7 @@ function loadFiles(){
         fileContainer.appendChild(fileDiv)
     }
     createTools()
+    document.getElementById('files').scrollTop = scroll
 }
 
 function loadFile(item){//note the not s in loadFile

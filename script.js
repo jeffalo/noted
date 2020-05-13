@@ -61,7 +61,9 @@ function loadFiles(){
         var fileContainer = document.getElementById('files')
 
         fileDiv.addEventListener('click', function(){
+            var scroll = document.getElementById('files').scrollTop
             loadFile(item)
+            document.getElementById('files').scrollTop = scroll
         })
         fileDiv.className = "file"
     	fileDiv.title = item.name

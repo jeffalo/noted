@@ -1,121 +1,171 @@
-body {
-    font-family: sans-serif;
-  }
-
-.sidenav {
-    height: 100%;
-    width: 250px;
-    position: fixed;
-    z-index: 1;
-    top: 0;
-    left: 0;
-    background-color: #23232e;
-    overflow-x: hidden;
-    padding-top: 10px;
-    box-shadow: 0 0 5px black
-  }
-  
-  .sidenav a {
-    padding: 6px 8px 6px 16px;
-    text-decoration: none;
-    font-size: 20px;
-    color: #818181;
-    flex-grow: 1;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-  .sidenav h1 {
-    padding: 6px 8px 6px 16px;
-    text-decoration: none;
-    font-size: 20px;
-    color: #818181;
-    display: block;
-  }
-
-  .file{
-    transition: background-color 0.25s;
-    display: flex;
-    padding: 10px;
-    overflow: hidden;
-    background-color: #23232e;
-    cursor: pointer;
-  }
-
-  .file:hover{
-    background-color:#1f1f24;
-  }
-
-  .selected{
-    background-color:#0e0e11;
-  }
-
-
-  .main {
-    margin-left: 250px; /* Same as the width of the sidenav */
-    font-size: 20px; /* Increased text to enable scrolling */
-    padding: 0px 10px;
-    height: 100%;
-  }
-  .title{
-    outline:0;
-    width: 100%;
-    height:100%
-  }
-  .contents{
-    outline:0;
-    width: 100%;
-    height:100%
-  }
-  .toolbox{
-    position: fixed;
-    bottom: 0;
-  }
-  .addbutton{
-    background-color: #0e0e11;
-    border-radius: 100%;
-    width: 50px;
-    height: 50px;
-    border: none;
-    color: white;
-    margin: 10px;
-    padding: 10px;
-    cursor: pointer;
-    transition: background-color 0.25s;
-  }
-  .addbutton:hover{
-    background-color:#1f1f24;
-  }
-  .addbutton:focus {outline:0;}
-  .llama{
-    color:#00a4db;
-    font-weight: bold;
-    text-decoration: none;
-  }
-  i { vertical-align: middle !important; padding-bottom: 5px;}
-  hr {
-    border: 2px solid #1f1f24;
-    border-radius: 5px;
-  }
-
-/*   body.swal2-shown > [aria-hidden="true"] {
-    filter: blur(10px);
-  }
-  body > * {
-    transition: 0.15s filter linear;
-} */ /* for a rainy day*/ 
-
-.noselect {
-  -webkit-touch-callout: none; /* iOS Safari */
-    -webkit-user-select: none; /* Safari */
-     -khtml-user-select: none; /* Konqueror HTML */
-       -moz-user-select: none; /* Old versions of Firefox */
-        -ms-user-select: none; /* Internet Explorer/Edge */
-            user-select: none; /* Non-prefixed version, currently
-                                  supported by Chrome, Edge, Opera and Firefox */
+* {
+  box-sizing: border-box;
 }
 
-.Btn{
+body, html {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body.swal2-height-auto:not(div):not(p):not(html):not(b):not(i) { /* Specific enough? 😛 */
+  height: 100% !important;
+}
+
+body {
+  font-family: sans-serif;
+}
+
+#wrap{
+   display: flex;
+   width: 100%;
+   height: 100%;
+}
+
+.sidenav {
+  height: 100%;
+  width: 250px;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #23232e;
+  overflow-x: hidden;
+  padding-top: 10px;
+  box-shadow: 0 0 5px black;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidenav a {
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 20px;
+  color: #818181;
+  flex-grow: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.file a.asdf-container {
+  margin-top: -0.25em;
+}
+
+.sidenav h1 {
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 20px;
+  color: #818181;
+  display: block;
+}
+
+.file {
+  transition: background-color 0.25s;
+  display: flex;
+  padding: 10px;
+  overflow: hidden;
+  background-color: #23232e;
+  cursor: pointer;
+  align-items: center;
+}
+
+.file:hover {
+  background-color: #1f1f24;
+}
+
+.selected {
+  background-color: #0e0e11;
+}
+
+.main {
+  /* Same as the width of the sidenav */
+  font-size: 20px;
+  /* Increased text to enable scrolling */
+  padding-left: 20px;
+  flex-grow: 1;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  outline: 0;
+}
+
+.contents {
+  outline: 0;
+  width: 100%;
+}
+
+.toolbox {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.toolboxbutton {
+  background-color: #0e0e11;
+  border-radius: 100%;
+  width: 50px;
+  height: 50px;
+  border: none;
+  color: white;
+  margin: 10px;
+  padding: 10px;
+  cursor: pointer;
+  transition: background-color 0.25s;
+}
+
+.toolboxbutton:hover {
+  background-color: #1f1f24;
+}
+
+.toolboxbutton:focus {
+  outline: 0;
+  box-shadow: 0 0 4px 4px #ffffff4a;
+}
+
+.llama {
+  color: #00a4db;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+i {
+  vertical-align: middle !important;
+  padding-bottom: 5px;
+}
+
+hr {
+  border: 2px solid #1f1f24;
+  border-radius: 5px;
+  width: 100%;
+}
+
+/*   body.swal2-shown > [aria-hidden="true"] {
+  filter: blur(10px);
+}
+body > * {
+  transition: 0.15s filter linear;
+} */
+/* for a rainy day*/
+.noselect {
+  -webkit-touch-callout: none;
+  /* iOS Safari */
+  -webkit-user-select: none;
+  /* Safari */
+  -khtml-user-select: none;
+  /* Konqueror HTML */
+  -moz-user-select: none;
+  /* Old versions of Firefox */
+  -ms-user-select: none;
+  /* Internet Explorer/Edge */
+  user-select: none;
+  /* Non-prefixed version, currently
+                                supported by Chrome, Edge, Opera and Firefox */
+}
+
+.Btn {
   float: right;
   background-color: #1f1f29;
   border-radius: 100%;
@@ -125,58 +175,71 @@ body {
   height: 30px;
   cursor: pointer;
   transition: background-color 0.25s;
+  margin-left: 5px;
 }
-.Btn:hover{
-  background-color:#131325;
-}
-.Btn:focus {outline:0;}
 
-.fix-button{
-  font-size:20px !important;
+.Btn:hover {
+  background-color: #131325;
+}
+
+.Btn:focus {
+  outline: 0;
+}
+
+.fix-button {
+  font-size: 20px !important;
   text-align: center !important;
   vertical-align: middle !important;
   line-height: 25px !important;
 }
 
-
 textarea {
-	width: 100%;
-	height: 100%;
-	border: none;
-	font-family: sans-serif;
-	font-size: 20px;
-	display: block;
-	resize: none;
+  border: none;
+  font-family: sans-serif;
+  font-size: 20px;
+  display: block;
+  resize: none;
 }
 
-.hidden{
+.hidden {
   display: none;
 }
 
-::-webkit-scrollbar
-{
-    width: 8px;
-    background-color: #F5F5F5;
+::-webkit-scrollbar {
+  width: 8px;
+  /*background-color: #F5F5F5;*/
 }
 
-::-webkit-scrollbar-thumb
-{
-    border-radius: 10px;
-    background-color: #555;
+textarea {
+  cursor: auto;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: #555;
 }
 
 @media (prefers-color-scheme: dark) {
-  html{
-    background-color: #191920;
+  html {
+      background-color: #191920;
   }
-  h1{
-    color: white;
+
+  h1 {
+      color: white;
   }
-  textarea{
-    background-color: #191920;
-    color: white;
+
+  textarea {
+      background-color: #191920;
+      color: white;
   }
-  p{
-    color: white;
+
+  p {
+      color: white;
   }
+}
+
+
+.files {
+  flex-grow: 1;
+  overflow: auto;
 }

@@ -58,13 +58,13 @@ function loadFiles(){
         console.log(item)
         var sidebar = document.getElementById('sidebar')
         var fileDiv = document.createElement("div");
-
+        var fileContainer = document.getElementById('files')
 
         fileDiv.addEventListener('click', function(){
             loadFile(item)
         })
         fileDiv.className = "file"
-	fileDiv.title = item.name
+    	fileDiv.title = item.name
         fileDiv.id = "file_"+item.name
         var a = document.createElement("a");
         a.className = 'asdf-container'
@@ -99,7 +99,7 @@ function loadFiles(){
         fileDiv.appendChild(saveBtn)
 
 
-        sidebar.appendChild(fileDiv)
+        fileContainer.appendChild(fileDiv)
     }
     createTools()
 }
@@ -159,6 +159,11 @@ function clearFiles(){//this one clears the sidebar of files
    document.getElementById('sidebar').innerHTML = `        <div onclick="showSplashScreen()" class="noselect">
    <h1 class="logo"><i class="material-icons">description</i> noted</h1>
 </div><hr>`
+    var fileContainer = document.createElement('div')
+    fileContainer.id = 'files'
+    fileContainer.className = 'files'
+
+    document.getElementById('sidebar').appendChild(fileContainer)
 }
 
 function createTools(){
@@ -171,7 +176,7 @@ function createTools(){
     createButton.addEventListener('click', function(){
         askFileName()
     })
-    createButton.className = "addbutton"
+    createButton.className = "toolboxbutton addbutton"
 
     var clearButton = document.createElement('button')
     clearButton.innerHTML = '<i class="material-icons">delete_sweep</i>'
@@ -179,7 +184,7 @@ function createTools(){
     clearButton.addEventListener('click', function(){
         clearAll()
     })
-    clearButton.className = "addbutton"
+    clearButton.className = "toolboxbutton delete-allbutton"
 
     var uploadButton = document.createElement('button')
     uploadButton.innerHTML = '<i class="material-icons">publish</i>'
@@ -187,7 +192,7 @@ function createTools(){
     uploadButton.addEventListener('click', function(){
         uploadFile()
     })
-    uploadButton.className = "addbutton"
+    uploadButton.className = "toolboxbutton uploadbutton"
 
 
     toolbox.appendChild(createButton)

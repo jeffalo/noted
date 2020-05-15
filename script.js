@@ -80,8 +80,12 @@ function loadFiles(){
         deleteBtn.className = "Btn"
         deleteBtn.innerHTML = '<i class="material-icons fix-button">delete</i>'
         deleteBtn.title = 'Delete this note'
-        deleteBtn.addEventListener('click', function(){
-            askRemoveFile(item.name)
+        deleteBtn.addEventListener('click', function(e){
+            if(e.shiftKey){
+                removeFile(item.name)
+            } else {
+                askRemoveFile(item.name)
+            }
         })
         fileDiv.appendChild(deleteBtn)
 
@@ -248,32 +252,7 @@ async function askRemoveFile(name){
         confirmButtonText: 'Yes, delete ' + escapeHtml(name) + '!'
       }).then((result) => {
         if (result.value) {
-            localStorage.removeItem(name)
-            var whats = JSON.parse(localStorage.getItem('fileList'))
-            var index = whats.indexOf(name)
-            whats.splice(index, 1)
-            localStorage.setItem('fileList', JSON.stringify(whats))
-        
-            var index2 = fileList.indexOf(name)
-            fileList.splice(index2, 1)
-        
-            var removeIndex = files.map(function(item) { return item.name; })
-                               .indexOf(name);
-        
-            ~removeIndex && files.splice(removeIndex, 1);
-            //clearFiles()
-            //loadFileList()
-            loadFiles()
-            showSplashScreen()
-            swal.fire({
-                title: escapeHtml(name) +' was deleted',
-                showCancelButton: false,
-                showConfirmButton: false,
-                timer: 1500,
-                toast: true,
-                position: "top-right",
-                icon: "success",
-              })          
+            removeFile(name)     
         }
       })
 }
@@ -296,6 +275,15 @@ function removeFile(name){
     //loadFileList()
     loadFiles()
     showSplashScreen()
+    swal.fire({
+        title: escapeHtml(name) +' was deleted',
+        showCancelButton: false,
+        showConfirmButton: false,
+        timer: 1500,
+        toast: true,
+        position: "top-right",
+        icon: "success",
+      })          
 }
 
 function showSplashScreen(){
@@ -517,7 +505,11 @@ function makeid(length) {
     })
 
     deleteBtn.addEventListener('click', e=> {
-        askRemoveFile(file.name)
+        if(e.shiftKey){
+            removeFile(file.name)
+        } else {
+            askRemoveFile(file.name)
+        }
     })
 
     downloadBtn.addEventListener('click', e=> {

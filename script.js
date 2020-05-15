@@ -98,7 +98,7 @@ function loadFiles(){
         })
         fileDiv.appendChild(editBtn)
 
-        var saveBtn = document.createElement("button")
+        /* var saveBtn = document.createElement("button")
         saveBtn.className = "Btn"
         saveBtn.innerHTML = '<i class="material-icons fix-button">save</i>'
         saveBtn.title = 'Save note as text file'
@@ -106,7 +106,7 @@ function loadFiles(){
             var itemContent = localStorage.getItem(item.name)
             saveTextAsFile(itemContent,item.name) //change later to use item.content because this is a terrible solution that im only doing so i can go watch home alone
         })
-        fileDiv.appendChild(saveBtn)
+        fileDiv.appendChild(saveBtn) */
 
 
         fileContainer.appendChild(fileDiv)
@@ -487,6 +487,11 @@ function makeid(length) {
 
  function createContextMenu(x,y, file){
      console.log(file)
+
+    var old_element = document.getElementById("context-menu");
+    var new_element = old_element.cloneNode(true);
+    old_element.parentNode.replaceChild(new_element, old_element);
+
      var contextDiv = document.getElementById('context-menu')
      contextDiv.style.top = y+"px"
      contextDiv.style.left = x+"px"
@@ -518,13 +523,13 @@ function makeid(length) {
     })
 
      window.addEventListener("click", e => {
-        console.log('a')
+        //console.log('a')
        var contextDiv = document.getElementById('context-menu')
        contextDiv.style.display = 'none'
     });
  }
  window.addEventListener("click", e => {
-     console.log('a')
+     //console.log('a')
     var contextDiv = document.getElementById('context-menu')
     contextDiv.style.display = 'none'
 });

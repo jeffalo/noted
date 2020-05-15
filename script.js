@@ -64,6 +64,10 @@ function loadFiles(){
         fileDiv.addEventListener('click', function(){
             loadFile(item)
         })
+        fileDiv.addEventListener("contextmenu", e => {
+            e.preventDefault();
+            createContextMenu(e.pageX,e.pageY, item)
+          });
         fileDiv.className = "file"
     	fileDiv.title = item.name
         fileDiv.id = "file_"+item.name
@@ -95,7 +99,8 @@ function loadFiles(){
         saveBtn.innerHTML = '<i class="material-icons fix-button">save</i>'
         saveBtn.title = 'Save note as text file'
         saveBtn.addEventListener('click', function(){
-            saveTextAsFile(item.content,item.name)
+            var itemContent = localStorage.getItem(item.name)
+            saveTextAsFile(itemContent,item.name) //change later to use item.content because this is a terrible solution that im only doing so i can go watch home alone
         })
         fileDiv.appendChild(saveBtn)
 
@@ -132,6 +137,7 @@ function save(){
     var fileContent = document.getElementById('contents')
     var fileName = document.getElementById('title')
     localStorage.setItem(fileName.innerText, fileContent.value)
+
 }
 
 function createFile(fileName, fileContent){
@@ -160,7 +166,7 @@ function createFile(fileName, fileContent){
 function clearFiles(){//this one clears the sidebar of files
    document.getElementById('sidebar').innerHTML = `        <div onclick="showSplashScreen()" class="noselect">
    <h1 class="logo"><i class="material-icons">description</i> noted</h1>
-</div><hr>`
+</div><hr class="top-hr">`
     var fileContainer = document.createElement('div')
     fileContainer.id = 'files'
     fileContainer.className = 'files'
@@ -490,3 +496,43 @@ function makeid(length) {
          .replace(/"/g, "&quot;")
          .replace(/'/g, "&#039;");
  }
+
+ function createContextMenu(x,y, file){
+     console.log(file)
+     var contextDiv = document.getElementById('context-menu')
+     contextDiv.style.top = y+"px"
+     contextDiv.style.left = x+"px"
+     contextDiv.style.display = 'block'
+
+    var menuTitle = document.getElementById('menu-title')
+
+    var renameBtn = document.getElementById('renameBtn')
+    var deleteBtn = document.getElementById('deleteBtn')
+    var downloadBtn = document.getElementById('downloadBtn')
+
+    menuTitle.innerText = file.name
+
+    renameBtn.addEventListener('click', e=> {
+        askRenameFile(file.name)
+    })
+
+    deleteBtn.addEventListener('click', e=> {
+        askRemoveFile(file.name)
+    })
+
+    downloadBtn.addEventListener('click', e=> {
+        var itemContent = localStorage.getItem(file.name)
+        saveTextAsFile(itemContent,file.name) //change later to use item.content because this is a terrible solution that im only doing so i can go watch home alone
+    })
+
+     window.addEventListener("click", e => {
+        console.log('a')
+       var contextDiv = document.getElementById('context-menu')
+       contextDiv.style.display = 'none'
+    });
+ }
+ window.addEventListener("click", e => {
+     console.log('a')
+    var contextDiv = document.getElementById('context-menu')
+    contextDiv.style.display = 'none'
+});

@@ -136,7 +136,7 @@ i {
   padding-bottom: 5px;
 }
 
-hr {
+.top-hr {
   border: 2px solid #1f1f24;
   border-radius: 5px;
   width: 100%;
@@ -242,4 +242,34 @@ textarea {
 .files {
   flex-grow: 1;
   overflow: auto;
+}
+
+.context-menu {
+  width: 120px;
+  z-index: 1;
+  box-shadow: 0 0 8px 3px black;
+  position: fixed;
+  display: none;
+  transition: 0.2s display ease-in-out;
+  background-color: white;
+  transition: 100ms;
+}
+
+.menu-option{
+  padding: 20px;
+  width: 100%;
+  transition: 250ms;
+  font-weight: normal;
+  cursor: pointer;
+}
+
+.menu-title{
+  padding: 20px;
+  width: 100%;
+  transition: 250ms;
+  font-weight: bold;
+}
+
+.menu-option:hover{
+  background-color: rgb(216, 216, 216);
 }

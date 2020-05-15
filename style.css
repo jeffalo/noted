@@ -30,7 +30,7 @@ body {
   top: 0;
   left: 0;
   background-color: #23232e;
-  overflow-x: hidden;
+  /*overflow-x: hidden;*/ /*if anything random breaks, blame this line here*/
   padding-top: 10px;
   box-shadow: 0 0 5px black;
   display: flex;
@@ -268,6 +268,8 @@ textarea {
   width: 100%;
   transition: 250ms;
   font-weight: bold;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 .menu-option:hover{

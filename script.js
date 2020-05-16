@@ -82,7 +82,7 @@ function loadFiles(){
         deleteBtn.title = 'Delete this note'
         deleteBtn.addEventListener('click', function(e){
             if(e.shiftKey){
-                removeFile(item.name)
+                removeFile(item.name, true)
             } else {
                 askRemoveFile(item.name)
             }
@@ -252,12 +252,12 @@ async function askRemoveFile(name){
         confirmButtonText: 'Yes, delete ' + escapeHtml(name) + '!'
       }).then((result) => {
         if (result.value) {
-            removeFile(name)     
+            removeFile(name, true)     
         }
       })
 }
 
-function removeFile(name){
+function removeFile(name, showToast){
     localStorage.removeItem(name)
     var whats = JSON.parse(localStorage.getItem('fileList'))
     var index = whats.indexOf(name)
@@ -275,15 +275,17 @@ function removeFile(name){
     //loadFileList()
     loadFiles()
     showSplashScreen()
-    swal.fire({
-        title: escapeHtml(name) +' was deleted',
-        showCancelButton: false,
-        showConfirmButton: false,
-        timer: 1500,
-        toast: true,
-        position: "top-right",
-        icon: "success",
-      })          
+    if(showToast){
+        swal.fire({
+            title: escapeHtml(name) +' was deleted',
+            showCancelButton: false,
+            showConfirmButton: false,
+            timer: 1500,
+            toast: true,
+            position: "top-right",
+            icon: "success",
+        })          
+    }
 }
 
 function showSplashScreen(){
@@ -317,10 +319,20 @@ function renameFile(oldName, newName){ //wish me good luck 😅
     files.push({name:newName, content:oldcontent})
     oldList.push(newName)
     localStorage.setItem('fileList', JSON.stringify(oldList))
-    removeFile(oldName)
+    removeFile(oldName, false)
     loadFiles()
     fileList.push(newName)
     loadFile({name:newName, content:oldcontent})
+
+    swal.fire({
+        title: escapeHtml(oldName) +' was renamed to '+escapeHtml(newName),
+        showCancelButton: false,
+        showConfirmButton: false,
+        timer: 1500,
+        toast: true,
+        position: "top-right",
+        icon: "success",
+    })          
 }
 
 async function askRenameFile(oldName){
@@ -395,7 +407,7 @@ async function clearAll(){
         if (result.value) {
             var fileListClear = JSON.parse(localStorage.getItem('fileList'))
             for(let file of fileListClear){
-                removeFile(file)
+                removeFile(file, false)
             }
             loadFiles()
             showSplashScreen()
@@ -511,7 +523,7 @@ function makeid(length) {
 
     deleteBtn.addEventListener('click', e=> {
         if(e.shiftKey){
-            removeFile(file.name)
+            removeFile(file.name, true)
         } else {
             askRemoveFile(file.name)
         }

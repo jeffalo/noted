@@ -236,6 +236,23 @@ textarea {
   p {
       color: white;
   }
+
+  .menu-option{
+    background-color: #191920;
+  }
+
+  .menu-title{
+    background-color: #191920;
+  }
+
+  .context-menu div{
+    color: white;
+    background-color: #191920;
+  }
+
+  .context-menu div:hover:not(.menu-title){
+    background-color: #3d3d4d;
+  }
 }
 
 
@@ -245,9 +262,9 @@ textarea {
 }
 
 .context-menu {
-  width: 120px;
+  width: 150px;
   z-index: 1;
-  box-shadow: 0 0 8px 3px black;
+  box-shadow: 0 0 10px 0px black;
   position: fixed;
   display: none;
   transition: 0.2s display ease-in-out;

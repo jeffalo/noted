@@ -1,241 +1,294 @@
 * {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 body, html {
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    padding: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 body.swal2-height-auto:not(div):not(p):not(html):not(b):not(i) { /* Specific enough? 😛 */
-    height: 100% !important;
+  height: 100% !important;
 }
 
 body {
-    font-family: system-ui, sans-serif;
+  font-family: sans-serif;
 }
 
 #wrap{
-     display: flex;
-     width: 100%;
-     height: 100%;
+   display: flex;
+   width: 100%;
+   height: 100%;
 }
 
 .sidenav {
-    height: 100%;
-    width: 250px;
-    z-index: 1;
-    top: 0;
-    left: 0;
-    background-color: #23232e;
-    overflow-x: hidden;
-    padding-top: 10px;
-    box-shadow: 0 0 5px black;
-    display: flex;
-    flex-direction: column;
+  height: 100%;
+  width: 250px;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #23232e;
+  /*overflow-x: hidden;*/ /*if anything random breaks, blame this line here*/
+  padding-top: 10px;
+  box-shadow: 0 0 5px black;
+  display: flex;
+  flex-direction: column;
 }
 
 .sidenav a {
-    padding: 6px 8px 6px 16px;
-    text-decoration: none;
-    font-size: 20px;
-    color: #818181;
-    flex-grow: 1;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 20px;
+  color: #818181;
+  flex-grow: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .file a.asdf-container {
-    margin-top: -0.25em;
+  margin-top: -0.25em;
 }
 
 .sidenav h1 {
-    padding: 6px 8px 6px 16px;
-    text-decoration: none;
-    font-size: 20px;
-    color: #818181;
-    display: block;
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 20px;
+  color: #818181;
+  display: block;
 }
 
 .file {
-    transition: background-color 0.25s;
-    display: flex;
-    padding: 10px;
-    overflow: hidden;
-    background-color: #23232e;
-    cursor: pointer;
-    align-items: center;
+  transition: background-color 0.25s;
+  display: flex;
+  padding: 10px;
+  overflow: hidden;
+  background-color: #23232e;
+  cursor: pointer;
+  align-items: center;
 }
 
 .file:hover {
-    background-color: #1f1f24;
+  background-color: #1f1f24;
 }
 
 .selected {
-    background-color: #0e0e11;
+  background-color: #0e0e11;
 }
 
 .main {
-    /* Same as the width of the sidenav */
-    font-size: 20px;
-    /* Increased text to enable scrolling */
-    padding: 0px 10px;
-    flex-grow: 1;
-    overflow: auto;
-    display: flex;
-    flex-direction: column;
+  /* Same as the width of the sidenav */
+  font-size: 20px;
+  /* Increased text to enable scrolling */
+  padding-left: 20px;
+  flex-grow: 1;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
 }
 
 .title {
-    outline: 0;
+  outline: 0;
 }
 
 .contents {
-    outline: 0;
-    width: 100%;
+  outline: 0;
+  width: 100%;
 }
 
 .toolbox {
-    display: flex;
-    justify-content: space-evenly;
+  display: flex;
+  justify-content: space-evenly;
 }
 
 .toolboxbutton {
-    background-color: #0e0e11;
-    border-radius: 100%;
-    width: 50px;
-    height: 50px;
-    border: none;
-    color: white;
-    margin: 10px;
-    padding: 10px;
-    cursor: pointer;
-    transition: background-color 0.25s;
+  background-color: #0e0e11;
+  border-radius: 100%;
+  width: 50px;
+  height: 50px;
+  border: none;
+  color: white;
+  margin: 10px;
+  padding: 10px;
+  cursor: pointer;
+  transition: background-color 0.25s;
 }
 
 .toolboxbutton:hover {
-    background-color: #1f1f24;
+  background-color: #1f1f24;
 }
 
 .toolboxbutton:focus {
-    outline: 0;
-    box-shadow: 0 0 4px 4px #ffffff4a;
+  outline: 0;
+  box-shadow: 0 0 4px 4px #ffffff4a;
 }
 
 .llama {
-    color: #00a4db;
-    font-weight: bold;
-    text-decoration: none;
+  color: #00a4db;
+  font-weight: bold;
+  text-decoration: none;
 }
 
 i {
-    vertical-align: middle !important;
-    padding-bottom: 5px;
+  vertical-align: middle !important;
+  padding-bottom: 5px;
 }
 
-hr {
-    border: 2px solid #1f1f24;
-    border-radius: 5px;
-    width: 100%;
+.top-hr {
+  border: 2px solid #1f1f24;
+  border-radius: 5px;
+  width: 100%;
 }
 
 /*   body.swal2-shown > [aria-hidden="true"] {
-    filter: blur(10px);
-  }
-  body > * {
-    transition: 0.15s filter linear;
+  filter: blur(10px);
+}
+body > * {
+  transition: 0.15s filter linear;
 } */
 /* for a rainy day*/
 .noselect {
-    -webkit-touch-callout: none;
-    /* iOS Safari */
-    -webkit-user-select: none;
-    /* Safari */
-    -khtml-user-select: none;
-    /* Konqueror HTML */
-    -moz-user-select: none;
-    /* Old versions of Firefox */
-    -ms-user-select: none;
-    /* Internet Explorer/Edge */
-    user-select: none;
-    /* Non-prefixed version, currently
-                                  supported by Chrome, Edge, Opera and Firefox */
+  -webkit-touch-callout: none;
+  /* iOS Safari */
+  -webkit-user-select: none;
+  /* Safari */
+  -khtml-user-select: none;
+  /* Konqueror HTML */
+  -moz-user-select: none;
+  /* Old versions of Firefox */
+  -ms-user-select: none;
+  /* Internet Explorer/Edge */
+  user-select: none;
+  /* Non-prefixed version, currently
+                                supported by Chrome, Edge, Opera and Firefox */
 }
 
 .Btn {
-    float: right;
-    background-color: #1f1f29;
-    border-radius: 100%;
-    border: none;
-    color: #818181;
-    width: 30px;
-    height: 30px;
-    cursor: pointer;
-    transition: background-color 0.25s;
-    margin-left: 5px;
+  float: right;
+  background-color: #1f1f29;
+  border-radius: 100%;
+  border: none;
+  color: #818181;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  transition: background-color 0.25s;
+  margin-left: 5px;
 }
 
 .Btn:hover {
-    background-color: #131325;
+  background-color: #131325;
 }
 
 .Btn:focus {
-    outline: 0;
+  outline: 0;
 }
 
 .fix-button {
-    font-size: 20px !important;
-    text-align: center !important;
-    vertical-align: middle !important;
-    line-height: 25px !important;
+  font-size: 20px !important;
+  text-align: center !important;
+  vertical-align: middle !important;
+  line-height: 25px !important;
 }
 
 textarea {
-    border: none;
-    font-family: sans-serif;
-    font-size: 20px;
-    display: block;
-    resize: none;
+  border: none;
+  font-family: sans-serif;
+  font-size: 20px;
+  display: block;
+  resize: none;
 }
 
 .hidden {
-    display: none;
+  display: none;
 }
 
 ::-webkit-scrollbar {
-    width: 8px;
-    background-color: #F5F5F5;
+  width: 8px;
+  /*background-color: #F5F5F5;*/
+}
+
+textarea {
+  cursor: auto;
 }
 
 ::-webkit-scrollbar-thumb {
-    border-radius: 10px;
-    background-color: #555;
+  border-radius: 10px;
+  background-color: #555;
 }
 
 @media (prefers-color-scheme: dark) {
-    html {
-        background-color: #191920;
-    }
+  html {
+      background-color: #191920;
+  }
 
-    h1 {
-        color: white;
-    }
+  h1 {
+      color: white;
+  }
 
-    textarea {
-        background-color: #191920;
-        color: white;
-    }
+  textarea {
+      background-color: #191920;
+      color: white;
+  }
 
-    p {
-        color: white;
-    }
+  p {
+      color: white;
+  }
+
+  .menu-option{
+    background-color: #191920;
+  }
+
+  .menu-title{
+    background-color: #191920;
+  }
+
+  .context-menu div{
+    color: white;
+    background-color: #191920;
+  }
+
+  .context-menu div:hover:not(.menu-title){
+    background-color: #3d3d4d;
+  }
 }
 
 
 .files {
-    flex-grow: 1;
-    overflow: auto;
+  flex-grow: 1;
+  overflow: auto;
+}
+
+.context-menu {
+  width: 150px;
+  z-index: 1;
+  box-shadow: 0 0 10px 0px black;
+  position: fixed;
+  display: none;
+  transition: 0.2s display ease-in-out;
+  background-color: white;
+  transition: 100ms;
+}
+
+.menu-option{
+  padding: 20px;
+  width: 100%;
+  transition: 250ms;
+  font-weight: normal;
+  cursor: pointer;
+}
+
+.menu-title{
+  padding: 20px;
+  width: 100%;
+  transition: 250ms;
+  font-weight: bold;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.menu-option:hover{
+  background-color: rgb(216, 216, 216);
 }

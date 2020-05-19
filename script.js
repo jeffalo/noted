@@ -1,7 +1,9 @@
+/* global Swal */
 // globals
 let files = [];
-let fileList = [];
+let fileList = new Set();
 let currentFile = 0;
+let menuFile = 0;
 const filesDiv = document.querySelector(".files");
 const splashtext = document.getElementById("splashtext");
 const toolbar = {
@@ -11,6 +13,12 @@ const toolbar = {
 };
 const fileContent = document.getElementById("contents");
 const fileName = document.getElementById("title");
+const contextDiv = document.getElementById("context-menu");
+const menuTitle = document.getElementById("menu-title");
+const renameBtn = document.getElementById("renameBtn");
+const deleteBtn = document.getElementById("deleteBtn");
+const downloadBtn = document.getElementById("downloadBtn");
+const shareBtn = document.getElementById("shareBtn");
 
 // element setup
 toolbar.add.addEventListener("click", function() {
@@ -21,6 +29,25 @@ toolbar.clearAll.addEventListener("click", function() {
 });
 toolbar.upload.addEventListener("click", function() {
   uploadFile();
+});
+renameBtn.addEventListener("click", e => {
+  askRenameFile(menuFile);
+});
+
+deleteBtn.addEventListener("click", e => {
+  if (e.shiftKey) {
+    removeFile(menuFile);
+  } else {
+    askRemoveFile(menuFile);
+  }
+});
+
+downloadBtn.addEventListener("click", e => {
+  saveTextAsFile(files[menuFile].content, files[menuFile].name);
+});
+
+shareBtn.addEventListener("click", e => {
+  share(files[menuFile]);
 });
 
 // sync with localstorage
@@ -37,7 +64,7 @@ function sync() {
 
 // initial load
 (() => {
-  let fileList = JSON.parse(localStorage.getItem("fileList")) || [];
+  fileList = new Set(JSON.parse(localStorage.getItem("fileList")) || []);
   for (let item of fileList) {
     console.log(item);
     var objectified = {
@@ -67,36 +94,21 @@ function renderFileList() {
     fileDiv.appendChild(a);
     var textnode = document.createTextNode(item.name);
     a.appendChild(textnode);
-    var deleteBtn = document.createElement("button");
-    deleteBtn.className = "Btn";
-    deleteBtn.innerHTML = '<i class="material-icons fix-button">delete</i>';
-    deleteBtn.title = "Delete this note";
-    deleteBtn.addEventListener("click", function() {
-      askRemoveFile(i);
-    });
-    fileDiv.appendChild(deleteBtn);
-
-    var editBtn = document.createElement("button");
-    editBtn.className = "Btn";
-    editBtn.innerHTML = '<i class="material-icons fix-button">edit</i>';
-    editBtn.title = "Rename note";
-    editBtn.addEventListener("click", function() {
-      askRenameFile(i);
-    });
-    fileDiv.appendChild(editBtn);
 
     var moreBtn = document.createElement("button");
     moreBtn.className = "Btn";
     moreBtn.innerHTML = '<i class="material-icons fix-button">more_horiz</i>';
     moreBtn.title = "More Options";
-    moreBtn.addEventListener("click", function() {
-      menu(moreBtn, {
-        Share: _ => share(files[currentFile]),
-        Download: _ =>
-          saveTextAsFile(files[currentFile].content, files[currentFile].name)
-      });
+    moreBtn.addEventListener("click", function(e) {
+      e.stopPropagation();
+      createContextMenu(e.pageX, e.pageY, i);
     });
     fileDiv.appendChild(moreBtn);
+
+    fileDiv.addEventListener("contextmenu", e => {
+      e.preventDefault();
+      createContextMenu(e.pageX, e.pageY, i);
+    });
 
     filesDiv.appendChild(fileDiv);
   }
@@ -115,7 +127,7 @@ function loadFile(i) {
     console.log("🕳 fileDiv doesn't exist");
   } else {
     document
-      .getElementById("file_" + files[oldFile].name)
+      .getElementById("file_" + files[oldFile * 1].name)
       .classList.remove("selected");
     fileDiv.classList.add("selected");
   }
@@ -129,15 +141,15 @@ function save() {
   sync();
 }
 
-function createFile(fileName, fileContent) {
+async function createFile(fileName, fileContent) {
   if (
     fileName == "fileList" ||
     fileName == "" ||
-    fileList.includes(fileName) ||
+    fileList.has(fileName) ||
     fileName == "notedllama"
   ) {
     //todo also remember to add check for used filename
-    Swal.fire({
+    await Swal.fire({
       icon: "error",
       title: "Oops...",
       text: "File name error (You should never see this screen)",
@@ -165,7 +177,7 @@ async function nameInput(oldname) {
       if (value == "fileList") {
         return "Sorry, that name is reserved";
       }
-      if (fileList.includes(value)) {
+      if (fileList.has(value)) {
         return "Sorry, that name is taken. (Deja vu?)";
       }
       if (value == "test") {
@@ -181,11 +193,12 @@ async function nameInput(oldname) {
 async function newFile() {
   let result = await nameInput();
   if (result.value) {
-    createFile(result.value, "Nothing... Yet.");
+    await createFile(result.value, "Nothing... Yet.");
   }
 }
 
 async function askRemoveFile(i) {
+  let name = files[i].name;
   let result = await Swal.fire({
     title: "Are you sure?",
     text: "You won't be able to revert this!",
@@ -299,7 +312,7 @@ function saveTextAsFile(textToWrite, fileNameToSaveAs) {
   } else {
     // Firefox requires the link to be added to the DOM before it can be clicked.
     downloadLink.href = window.URL.createObjectURL(textFileAsBlob);
-    downloadLink.onclick = destroyClickedElement;
+    downloadLink.onclick = downloadLink.remove.bind(downloadLink);
     downloadLink.style.display = "none";
     document.body.appendChild(downloadLink);
   }
@@ -319,18 +332,22 @@ async function uploadFile() {
   });
 
   if (file) {
-    const reader = new FileReader();
-    reader.onload = e => {
-      console.log(reader.result);
-      var randomstring = makeid(10);
-      if (fileList.includes(file.name)) {
-        createFile(file.name + " - " + randomstring, reader.result);
-      } else {
-        createFile(file.name, reader.result);
-      }
-    };
-    reader.readAsText(file);
+    importFile(file);
   }
+}
+
+async function importFile(file) {
+  const reader = new FileReader();
+  reader.onload = async e => {
+    console.log(reader.result);
+    var randomstring = makeid(10);
+    if (fileList.has(file.name)) {
+      await createFile(file.name + " - " + randomstring, reader.result);
+    } else {
+      await createFile(file.name, reader.result);
+    }
+  };
+  reader.readAsText(file);
 }
 
 function makeid(length) {
@@ -356,6 +373,7 @@ function escapeHtml(unsafe) {
 const backend = (() => {
   function jsonp(url) {
     return new Promise(function(resolve, reject) {
+      let script;
       url = new URL(url);
       var callbackName = "_jsonp_" + new Date().valueOf().toString(36);
       let cleanup = function() {
@@ -396,7 +414,7 @@ const backend = (() => {
   let params = new URLSearchParams(location.search);
   let importId = params.get("import");
   if (importId) {
-    let loadToast = swal.fire({
+    let loadToast = Swal.fire({
       title: "Loading shared file...",
       showCancelButton: false,
       showConfirmButton: false,
@@ -407,13 +425,16 @@ const backend = (() => {
     history.pushState(null, document.title, "?");
     let { text } = await backend.get(importId);
     let newlineIndex = text.indexOf("\n");
-    newlineIndex = newlineIndex == -1 ? 0 : newlineIndex;
     loadToast.closeToast();
-    createFile(
-      text.slice(0, newlineIndex) || "Untitled",
-      text.slice(newlineIndex)
+
+    await importFile(
+      new File(
+        [text.slice(newlineIndex + 1)],
+        text.slice(0, newlineIndex == -1 ? 0 : newlineIndex) || "Untitled"
+      )
     );
-    swal.fire({
+
+    Swal.fire({
       title: "File Loaded!",
       showCancelButton: false,
       showConfirmButton: false,
@@ -426,7 +447,7 @@ const backend = (() => {
 })();
 
 async function share(file) {
-  let loadToast = swal.fire({
+  let loadToast = Swal.fire({
     title: "Uploading file...",
     showCancelButton: false,
     showConfirmButton: false,
@@ -438,41 +459,39 @@ async function share(file) {
   let shareLink = new URL(location.href);
   shareLink.searchParams.set("import", id);
   loadToast.closeToast();
-  Swal.fire({
-    title: "Share",
-    text: "Your share link is " + shareLink.href,
-    showCancelButton: false
-  });
+  if (navigator.share) {
+    Swal.fire({
+      toast: true,
+      showCancelButton: false,
+      position: "top-right",
+      text: "Upload complete!",
+      confirmButtonText: "Send link",
+      onBeforeOpen: e =>
+        e.querySelector(".swal2-confirm").addEventListener("click", () => {
+          navigator.share({
+            text: "View " + file.name + " on noted",
+            title: file.name,
+            url: shareLink.href
+          });
+        })
+    });
+  } else {
+    Swal.fire({
+      title: "Share",
+      text: "Your share link is " + shareLink.href,
+      showCancelButton: false
+    });
+  }
 }
 
-function menu(btn, buttons) {
-  let menu = Swal.fire({
-    html: "&nbsp;",
-    onBeforeOpen: e => {
-      for (let name in buttons) {
-        let b = document.createElement("button");
-        b.type = "button";
-        b.className = "swal2-confirm swal2-styled";
-        b.setAttribute(
-          "style",
-          "border-left-color: rgb(48, 133, 214); border-right-color: rgb(48, 133, 214);"
-        );
-        b.textContent = name;
-        b.addEventListener("click", e=>{
-          e.preventDefault();
-          buttons[name]()
-        });
-        e.querySelector(".swal2-html-container").appendChild(b);
-      }
-    },
-    showConfirmButton: false,
-    showCancelButton: true,
-    toast: true,
-    grow: "column",
-    position:"top-left",
-    customClass: {
-      popup: "menu-popup",
-      content: "menu-content"
-    }
-  });
+function createContextMenu(x, y, i) {
+  contextDiv.style.top = y + "px";
+  contextDiv.style.left = x + "px";
+  contextDiv.style.display = "block";
+
+  menuTitle.innerText = files[i].name;
+  menuFile = i;
 }
+window.addEventListener("click", e => {
+  contextDiv.style.display = "none";
+});

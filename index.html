@@ -19,6 +19,7 @@
 
   <body>
     <div id="wrap">
+      <input type="checkbox" id="showHideMenu" />
       <div id="sidebar" class="sidenav">
         <div onclick="showSplashScreen()" class="noselect">
           <h1 class="logo"><i class="material-icons">description</i> noted</h1>
@@ -42,6 +43,14 @@
             <i class="material-icons">delete_sweep</i>
           </button>
         </div>
+
+        <label
+          for="showHideMenu"
+          title="Show menu"
+          class="toolboxbutton show-menubutton"
+        >
+          <i class="material-icons">menu</i>
+        </label>
       </div>
       <div id="main" class="main">
         <h1
@@ -69,11 +78,12 @@
         </p>
       </div>
     </div>
-        <div class="context-menu" id="context-menu">
-        <div id="menu-title" class="menu-title">Title</div>
-        <div id="renameBtn"class="menu-option">Rename</div>
-        <div id="deleteBtn" class="menu-option">Delete</div>
-        <div id="downloadBtn"class="menu-option">Download as .txt</div>
+    <div class="context-menu" id="context-menu">
+      <div id="menu-title" class="menu-title">Title</div>
+      <div id="renameBtn" class="menu-option">Rename</div>
+      <div id="deleteBtn" class="menu-option">Delete</div>
+      <div id="downloadBtn" class="menu-option">Download to computer</div>
+      <div id="shareBtn" class="menu-option">Share</div>
     </div>
   </body>
 </html>

@@ -1,19 +1,33 @@
-.toolboxbutton .material-icons, .Btn .material-icons {
+hr::before {
+  content: "";
+  width: 100%;
+  height: 100%;
+  background-color: #ffffff57;
+  display: block;
+}
+.toolboxbutton .material-icons,
+.Btn .material-icons {
   padding: 0;
   margin: 0;
 }
-.toolboxbutton, .Btn {
+.toolboxbutton,
+.Btn {
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
   vertical-align: middle;
 }
-#showHideMenu, .show-menubutton {
+#showHideMenu,
+.show-menubutton {
   display: none;
 }
 hr {
   width: 100%;
+  height: 3px;
+  border: 0;
+  margin: 0;
+  padding: 0;
 }
 @media (max-width: 800px) {
   #sidebar {
@@ -22,11 +36,11 @@ hr {
     right: 100%;
     left: auto;
   }
-  
+
   #showHideMenu:checked + #sidebar {
     left: 0;
   }
-  
+
   .show-menubutton {
     display: block;
     position: absolute;
@@ -35,14 +49,14 @@ hr {
     right: -60px;
     margin: 0;
     padding: 0;
-    border-top-left-radius: 0!important;
-    border-bottom-left-radius: 0!important;
+    border-top-left-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
   }
-  
+
   #main {
-    margin-top:30px;
+    margin-top: 30px;
   }
-  
+
   div#context-menu {
     width: 100%;
     left: 0 !important;
@@ -158,7 +172,7 @@ body {
 }
 
 .toolboxbutton {
-  flex-shrink:0;
+  flex-shrink: 0;
   background-color: #0e0e11;
   border-radius: 100%;
   width: 50px;

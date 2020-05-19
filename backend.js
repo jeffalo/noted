@@ -1,5 +1,5 @@
 import Swal from "https://cdn.pika.dev/sweetalert2@^9.7.1";
-import * as files from "/files.js";
+import * as files from "./files.js";
 
 const backend = (() => {
   function jsonp(url) {

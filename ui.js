@@ -1,10 +1,10 @@
 /* global globalThis */
 import Swal from "https://cdn.pika.dev/sweetalert2@^9.7.1";
-import * as ele from "/elements.js";
-import * as files from "/files.js";
-import * as store from "/store.js";
-import * as utils from "/utils.js";
-import * as backend from "/backend.js";
+import * as ele from "./elements.js";
+import * as files from "./files.js";
+import * as store from "./store.js";
+import * as utils from "./utils.js";
+import * as backend from "./backend.js";
 
 let menuFile = 0;
 

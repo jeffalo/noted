@@ -10,17 +10,23 @@
       rel="stylesheet"
     />
     <link
-      rel="icon"
-      href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📄</text></svg>"
+      href="https://unpkg.com/sweetalert2@9.11.0/dist/sweetalert2.min.css"
+      rel="stylesheet"
     />
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9" defer></script>
-    <script src="script.js" defer></script>
+    <link
+      rel="icon"
+      href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgd2lkdGg9IjI0Ij48ZGVmcz4NCiAgICA8c3R5bGU+DQogICAgICAgICNwYXRoIHsNCiAgICAgICAgICAgIGZpbGw6IGJsYWNrOw0KICAgICAgICB9DQogICAgICAgIEBtZWRpYSAocHJlZmVycy1jb2xvci1zY2hlbWU6IGRhcmspIHsNCiAgICAgICAgICAgICNwYXRoIHsNCiAgICAgICAgICAgICAgICBmaWxsOndoaXRlOw0KICAgICAgICAgICAgfQ0KICAgICAgICB9DQogICAgPC9zdHlsZT4NCjwvZGVmcz4NCjxwYXRoIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgZD0iTTAgMGgyNHYyNEgweiIgZmlsbD0ibm9uZSIvPjxwYXRoIGQ9Ik0xNCAySDZjLTEuMSAwLTEuOTkuOS0xLjk5IDJMNCAyMGMwIDEuMS44OSAyIDEuOTkgMkgxOGMxLjEgMCAyLS45IDItMlY4bC02LTZ6bTIgMTZIOHYtMmg4djJ6bTAtNEg4di0yaDh2MnptLTMtNVYzLjVMMTguNSA5SDEzeiIgaWQ9InBhdGgiLz48L3N2Zz4="
+    />
+    <script type="module">
+      import "./main.js";
+    </script>
   </head>
 
   <body>
     <div id="wrap">
+      <input type="checkbox" id="showHideMenu" />
       <div id="sidebar" class="sidenav">
-        <div onclick="showSplashScreen()" class="noselect">
+        <div id="header" class="noselect">
           <h1 class="logo"><i class="material-icons">description</i> noted</h1>
         </div>
         <hr />
@@ -42,21 +48,30 @@
             <i class="material-icons">delete_sweep</i>
           </button>
         </div>
+
+        <label
+          for="showHideMenu"
+          title="Show menu"
+          class="toolboxbutton show-menubutton"
+        >
+          <i class="material-icons">menu</i>
+        </label>
       </div>
       <div id="main" class="main">
-        <h1
-          oninput="save()"
-          contenteditable="false"
-          class="title"
-          id="title"
-        ></h1>
+        <h1 contenteditable="false" class="title" id="title">
+          noted text editor by jeffalo
+        </h1>
         <textarea
-          oninput="save()"
           contenteditable="false"
-          class="contents"
+          class="contents hidden"
           id="contents"
         ></textarea>
-        <p id="splashtext" class="hidden">
+        <p id="splashtext">
+          <noscript>
+            This app requires Javascript for it to work. Sorry!<br /><br />
+          </noscript>
+          <script>
+            document.write(`
           select a document or create one with the panel on the left.
           <br /><br />
           suggestions, feedback or issues? check out the
@@ -65,15 +80,17 @@
             target="_blank"
             href="https://github.com/JeffaloBob/noted"
             >GitHub repo.</a
-          >
+          >`);
+          </script>
         </p>
       </div>
     </div>
-        <div class="context-menu" id="context-menu">
-        <div id="menu-title" class="menu-title">Title</div>
-        <div id="renameBtn"class="menu-option">Rename</div>
-        <div id="deleteBtn" class="menu-option">Delete</div>
-        <div id="downloadBtn"class="menu-option">Download as .txt</div>
+    <div class="context-menu" id="context-menu">
+      <div id="menu-title" class="menu-title">Title</div>
+      <div id="renameBtn" class="menu-option">Rename</div>
+      <div id="deleteBtn" class="menu-option">Delete</div>
+      <div id="downloadBtn" class="menu-option">Download to computer</div>
+      <div id="shareBtn" class="menu-option">Share</div>
     </div>
   </body>
 </html>

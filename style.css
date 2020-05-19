@@ -1,15 +1,84 @@
+hr::before {
+  content: "";
+  width: 100%;
+  height: 100%;
+  background-color: #ffffff57;
+  display: block;
+}
+.toolboxbutton .material-icons,
+.Btn .material-icons {
+  padding: 0;
+  margin: 0;
+}
+.toolboxbutton,
+.Btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  vertical-align: middle;
+}
+#showHideMenu,
+.show-menubutton {
+  display: none;
+}
+hr {
+  width: 100%;
+  height: 3px;
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+@media (max-width: 800px) {
+  #sidebar {
+    position: fixed;
+    top: 0;
+    right: 100%;
+    left: auto;
+  }
+
+  #showHideMenu:checked + #sidebar {
+    left: 0;
+  }
+
+  .show-menubutton {
+    display: block;
+    position: absolute;
+    z-index: 999;
+    top: 0;
+    right: -60px;
+    margin: 0;
+    padding: 0;
+    border-top-left-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+  }
+
+  #main {
+    margin-top: 30px;
+  }
+
+  div#context-menu {
+    width: 100%;
+    left: 0 !important;
+    top: auto !important;
+    bottom: 0;
+  }
+}
+
 * {
   box-sizing: border-box;
 }
 
-body, html {
+body,
+html {
   width: 100%;
   height: 100%;
   margin: 0;
   padding: 0;
 }
 
-body.swal2-height-auto:not(div):not(p):not(html):not(b):not(i) { /* Specific enough? 😛 */
+body.swal2-height-auto:not(div):not(p):not(html):not(b):not(i) {
+  /* Specific enough? 😛 */
   height: 100% !important;
 }
 
@@ -17,24 +86,23 @@ body {
   font-family: sans-serif;
 }
 
-#wrap{
-   display: flex;
-   width: 100%;
-   height: 100%;
+#wrap {
+  display: flex;
+  width: 100%;
+  height: 100%;
 }
 
 .sidenav {
   height: 100%;
-  width: 250px;
+  max-width: 250px;
   z-index: 1;
-  top: 0;
-  left: 0;
   background-color: #23232e;
   /*overflow-x: hidden;*/ /*if anything random breaks, blame this line here*/
   padding-top: 10px;
   box-shadow: 0 0 5px black;
   display: flex;
   flex-direction: column;
+  width: calc(100% - 55px);
 }
 
 .sidenav a {
@@ -104,6 +172,7 @@ body {
 }
 
 .toolboxbutton {
+  flex-shrink: 0;
   background-color: #0e0e11;
   border-radius: 100%;
   width: 50px;
@@ -221,40 +290,39 @@ textarea {
 
 @media (prefers-color-scheme: dark) {
   html {
-      background-color: #191920;
+    background-color: #191920;
   }
 
   h1 {
-      color: white;
+    color: white;
   }
 
   textarea {
-      background-color: #191920;
-      color: white;
+    background-color: #191920;
+    color: white;
   }
 
   p {
-      color: white;
+    color: white;
   }
 
-  .menu-option{
+  .menu-option {
     background-color: #191920;
   }
 
-  .menu-title{
+  .menu-title {
     background-color: #191920;
   }
 
-  .context-menu div{
+  .context-menu div {
     color: white;
     background-color: #191920;
   }
 
-  .context-menu div:hover:not(.menu-title){
+  .context-menu div:hover:not(.menu-title) {
     background-color: #3d3d4d;
   }
 }
-
 
 .files {
   flex-grow: 1;
@@ -272,7 +340,7 @@ textarea {
   transition: 100ms;
 }
 
-.menu-option{
+.menu-option {
   padding: 20px;
   width: 100%;
   transition: 250ms;
@@ -280,7 +348,7 @@ textarea {
   cursor: pointer;
 }
 
-.menu-title{
+.menu-title {
   padding: 20px;
   width: 100%;
   transition: 250ms;
@@ -289,6 +357,6 @@ textarea {
   overflow: hidden;
 }
 
-.menu-option:hover{
+.menu-option:hover {
   background-color: rgb(216, 216, 216);
 }

@@ -14,7 +14,7 @@ body.swal2-height-auto:not(div):not(p):not(html):not(b):not(i) { /* Specific eno
 }
 
 body {
-  font-family: sans-serif;
+  font-family: Arial;
 }
 
 #wrap{

@@ -8,7 +8,8 @@ if (localStorage.getItem("fileList") === null) {
     console.log('new user')
     var exampleFileList = JSON.stringify(['example'])
     localStorage.setItem('fileList',exampleFileList)
-    localStorage.setItem('example','welcome to noted, this is an example file!')
+    localStorage.setItem('Welcome to Noted!','This is an example file. You can type here. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tortor dignissim convallis aenean et tortor at. Pretium quam vulputate dignissim suspendisse. Hac habitasse platea dictumst quisque sagittis purus sit amet volutpat. Etiam dignissim diam quis enim lobortis scelerisque fermentum. Eu lobortis elementum nibh tellus. Neque ornare aenean euismod elementum nisi quis. Vulputate ut pharetra sit amet aliquam id diam maecenas. Nunc non blandit massa enim nec dui nunc. Egestas sed sed risus pretium quam. Sed id semper risus in. Quam adipiscing vitae proin sagittis nisl rhoncus. Dolor magna eget est lorem. Vestibulum mattis ullamcorper velit sed ullamcorper morbi tincidunt ornare.
+')
 }
 
 window.onload = function(){
